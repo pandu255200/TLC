@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align children to left */
-  padding: 30px;
+  /* padding: 30px; */
   border-radius: 12px;
   background: #fff;
   text-align: left;        /* Text aligned left */
@@ -31,8 +31,8 @@
 
 .hamburger-hover-wrapper {
   position: absolute;
-  top: 40px;
-  right: 1288px;
+  top: 20px;
+  left: 2px;
   z-index: 9999;
 }
 
@@ -47,7 +47,7 @@
 .hamburger-toggle .bar {
   width: 20px;
   height: 2px;
-  background-color: #e94646;
+  background-color: #0c0c0c;
   margin: 4px 0;
 }
 
@@ -136,18 +136,43 @@
 
 .dropdown-divider {
   height: 1px;
-  background-color: #ff4d4f;
+  background-color: #374bff;
   margin: 8px 0;
 }
 
 .logout-btn {
-  color: #ff0000;
+  color: #5a41e9;
   font-weight: bold;
 }
 
 .icon{
-  color: #ff0000;
+  color: #3f34d3;
 }
 .arjun{
-  color: #ff0000;
+  color: #285fe0;
+}
+
+
+
+
+
+.nav-button.active {
+  background: linear-gradient(90deg, #5c60d0, #4f5cff);
+  color: white;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+   filter: brightness(0);
+}
+
+.nav-button.active .nav-icon {
+  filter: brightness(0) invert(1);
+}
+
+.nav-button:hover .nav-icon {
+  filter: brightness(0) invert(0.5);
 }

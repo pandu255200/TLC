@@ -1,314 +1,545 @@
 import React from "react";
-import { useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-  ResponsiveContainer,
-  Label,
-  CartesianGrid,
-} from "recharts";
-import {
-  FiBarChart2,
-  FiPieChart,
-  FiAlertCircle,
-  FiClock,
-  FiUser,
-} from "react-icons/fi";
-import "../styles/Charts.css";
-
-const bucketData = [
-  { bucket: "BUC123", compliant: 20, nonCompliant: 10 },
-  { bucket: "BUC124", compliant: 10, nonCompliant: 18 },
-  { bucket: "BUC125", compliant: 12, nonCompliant: 13 },
-  { bucket: "BUC126", compliant: 23, nonCompliant: 5 },
-];
-
-const operatorData = [
-  { name: "Operator 1", value: 70 },
-  { name: "Operator 2", value: 30 },
-];
-
-const trendData = [
-  { date: "29/7", value: 20 },
-  { date: "30/7", value: 10 },
-  { date: "31/7", value: 30 },
-  { date: "1/8", value: 0 },
-  { date: "5/8", value: 50 },
-];
-
-const ladbfData = [
-  { time: "2H", v1: 120000, v2: 180000 },
-  { time: "6H", v1: 160000, v2: 100000 },
-  { time: "20H", v1: 90000, v2: 50000 },
-  { time: "7H", v1: 140000, v2: 200000 },
-  { time: "4H", v1: 80000, v2: 120000 },
-];
-
-const PIE_COLORS = ["#f59e0b", "#1d4ed8"];
+import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../styles/live.css";
+import { HelpCircle } from "lucide-react";
 
 const Analytics = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [shift, setShift] = useState("");
+  const [analyticsData, setAnalyticsData] = useState(null);
 
-  const monthLabel = currentDate.toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
-  const handlePrevMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
-    );
+  const loadPCDData = async () => {
+    try {
+      const response = await fetch("/trolley.pcd");
+
+      const text = await response.text();
+
+      const lines = text.split("\n");
+
+      // Remove headers
+      const pointLines = lines.filter((line) => {
+        const first = line.trim().split(" ")[0];
+
+        return !isNaN(parseFloat(first));
+      });
+
+      // SAMPLE DATA (important for performance)
+      const sampled = pointLines.filter((_, index) => index % 20 === 0);
+
+      const points = sampled.map((line) => {
+        const [x, y, z] = line.trim().split(" ").map(Number);
+
+        return { x, y, z };
+      });
+
+      // ===== CALCULATIONS =====
+
+      const totalPoints = points.length;
+
+      const avgHeight = points.reduce((sum, p) => sum + p.z, 0) / totalPoints;
+
+      const maxHeight = Math.max(...points.map((p) => p.z));
+
+      const minHeight = Math.min(...points.map((p) => p.z));
+
+      const fillAccuracy = Math.min(
+        100,
+        Math.round((avgHeight / maxHeight) * 100),
+      );
+
+      // ===== CREATE ANALYTICS =====
+
+      const generatedData = {
+        stats: {
+          totalTrolleys: totalPoints,
+          avgFillAccuracy: `${fillAccuracy}%`,
+          activeAlerts: Math.round(maxHeight * 10),
+          processedPerHour: Math.round(avgHeight * 20),
+        },
+
+        shiftCompliance: [
+          {
+            shift: "Shift A",
+            compliant: 100,
+            nonCompliant: 20,
+          },
+          {
+            shift: "Shift B",
+            compliant: 120,
+            nonCompliant: 15,
+          },
+          {
+            shift: "Shift C",
+            compliant: 151,
+            nonCompliant: 10,
+          },
+        ],
+
+        efficiencyTrend: [
+          {
+            date: "10/05/26",
+            value: 30,
+          },
+          {
+            date: "11/05/26",
+            value: 20,
+          },
+          {
+            date: "12/05/26",
+            value: 25,
+          },
+          {
+            date: "13/05/26",
+            value: 40,
+          },
+          {
+            date: "14/05/26",
+            value: 30,
+          },
+        ],
+
+        fillingTimeTrend: [
+          {
+            date: "10/05/26",
+            value: 0.5,
+          },
+          {
+            date: "11/05/26",
+            value: 2,
+          },
+          {
+            date: "12/05/26",
+            value: 2.5,
+          },
+          {
+            date: "13/05/26",
+            value: 1,
+          },
+          {
+            date: "14/05/26",
+            value: 3,
+          },
+        ],
+      };
+
+      setAnalyticsData(generatedData);
+      console.log("===== PCD ANALYTICS =====");
+
+      console.log("Total Points:", totalPoints);
+
+      console.log("Average Height:", avgHeight);
+
+      console.log("Maximum Height:", maxHeight);
+
+      console.log("Minimum Height:", minHeight);
+
+      console.log("Fill Accuracy:", fillAccuracy);
+
+      console.log("Generated Analytics:", generatedData);
+
+      console.log("Sample PCD Points:", points.slice(0, 10));
+    } catch (error) {
+      console.error("PCD Load Error:", error);
+    }
   };
 
-  const handleNextMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
-    );
-  };
+  const fillingTimePoints = analyticsData?.fillingTimeTrend
+    ?.map((item, index) => {
+      const x = 80 + index * 250;
+
+      const y = 140 - item.value * 15;
+
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  useEffect(() => {
+    loadPCDData();
+  }, []);
+
+  if (!analyticsData) {
+    return <div>Loading analytics...</div>;
+  }
+
+  const efficiencyPoints = analyticsData?.efficiencyTrend
+    ?.map((item, index) => {
+      const x = 50 + index * 75;
+      const y = 120 - item.value;
+
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  const efficiencyValues = analyticsData.efficiencyTrend.map(
+    (item) => item.value,
+  );
+
+  const efficiencyMax = Math.max(...efficiencyValues);
+
+  const efficiencyMin = Math.min(...efficiencyValues);
+
+  // round max to nearest 5
+  const roundedEfficiencyMax = Math.ceil(efficiencyMax / 5) * 5;
+
+  // create steps like 0,5,10,15,20
+  const efficiencyYAxis = [];
+
+  for (let i = roundedEfficiencyMax; i >= 0; i -= 5) {
+    efficiencyYAxis.push(i);
+  }
   return (
-    <div className="analytics-page">
-      {/* FILTERS */}
-      <div className="filters">
-        <select>
-          <option>Start Date</option>
-        </select>
-        <select>
-          <option>End Date</option>
-        </select>
-        <select>
-          <option>Bucket Number</option>
-        </select>
-        <select>
-          <option>Operator</option>
-        </select>
-        <select>
-          <option>Shift</option>
-        </select>
-        <button>Compliant</button>
-        <button>Non-compliant</button>
+    <div className="dash-wrapper">
+      {/* HEADER */}
+      <div className="dash-header">
+        <p className="dash-path">
+          Menu / <span>Analytics</span>
+        </p>
+
+        <div className="dash-filter-box">
+          {/* START DATE */}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Start Date"
+            className="custom-date-picker"
+            dateFormat="dd/MM/yyyy"
+          />
+
+          {/* END DATE */}
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            placeholderText="End Date"
+            className="custom-date-picker"
+            dateFormat="dd/MM/yyyy"
+          />
+
+          {/* SHIFT */}
+          <select
+            value={shift}
+            onChange={(e) => setShift(e.target.value)}
+            className="shift-select"
+          >
+            <option value="">Shift</option>
+            <option value="Shift A">Shift A</option>
+            <option value="Shift B">Shift B</option>
+            <option value="Shift C">Shift C</option>
+            <option value="Shift D">Shift D</option>
+            <option value="Shift E">Shift E</option>
+          </select>
+
+          <button className="report-download-btn">↓ Download Report</button>
+        </div>
       </div>
 
       {/* STATS */}
-      {/* STATS */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-header">
-            <FiBarChart2 className="stat-icon" />
-            <h2>2,355</h2>
-          </div>
-          <p>Total Buckets Analyzed</p>
-        </div>
+      <div className="stats-layout">
+        <div className="info-card violet-bg">
+          <div className="card-top">
+            <p>TOTAL TROLLEY'S PROCESSED</p>
+            <div className="info-tooltip-wrapper">
+              <span className="circle-info">i</span>
 
-        <div className="stat-card">
-          <div className="stat-header">
-            <FiPieChart className="stat-icon" />
-            <h2>35%</h2>
-          </div>
-          <p>Total Compliance Percentage</p>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-header">
-            <FiAlertCircle className="stat-icon" />
-            <h2>350</h2>
-          </div>
-          <p>Total Non-Compliance Events</p>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-header">
-            <FiClock className="stat-icon" />
-            <h2>28 Hour</h2>
-          </div>
-          <p>Average Machine Run Hours</p>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-header">
-            <FiUser className="stat-icon" />
-            <h2>20</h2>
-          </div>
-          <p>Operator Most Non-Compliance</p>
-        </div>
-      </div>
-
-      {/* TOP CHARTS */}
-      <div className="charts-grid">
-        <div className="chart-card bucket-chart">
-          <h4>Bucket Number</h4>
-          <ResponsiveContainer>
-            <BarChart data={bucketData}>
-              <XAxis dataKey="bucket" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="compliant" stackId="a" fill="#8b5cf6" />
-              <Bar dataKey="nonCompliant" stackId="a" fill="#22c55e" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="chart-card operator-chart">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Legend
-                verticalAlign="top"
-                align="center"
-                iconType="circle"
-                wrapperStyle={{
-                  fontSize: "11px",
-                  marginBottom: "6px",
-                }}
-              />
-
-          
-              <Pie
-                data={operatorData}
-                dataKey="value"
-                innerRadius={45}
-                outerRadius={70}
-                paddingAngle={2}
-                cx="50%"
-                cy="55%" 
-              >
-                {operatorData.map((_, i) => (
-                  <Cell key={i} fill={PIE_COLORS[i]} />
-                ))}
-              </Pie>
-
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-
-          
-          <div className="chart-footer-title">Operator Wise</div>
-        </div>
-
-        <div className="chart-card trend-chart">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={trendData}
-              margin={{ top: 9, right: 10, left: 10, bottom: -10 }}
-            >
-              <XAxis dataKey="date" axisLine={false} tick={{ fontSize: 11 }} />
-
-              <YAxis domain={[0, 70]} axisLine={false} tick={{ fontSize: 11 }}>
-                <Label
-                  value="Total No of Noncompliance Event"
-                  angle={-90}
-                  position="insideLeft"
-                  style={{
-                    textAnchor: "middle",
-                    fill: "#4338ca",
-                    fontSize: 10,
-                  }}
-                />
-              </YAxis>
-
-              <CartesianGrid
-                strokeDasharray="3 3"
-                vertical={false}
-                stroke="#e5e7eb"
-              />
-
-              <Tooltip />
-
-              <Line
-                type="linear"
-                dataKey="value"
-                stroke="#000"
-                strokeWidth={1.5}
-                dot={{ r: 4, fill: "#2563eb", stroke: "#2563eb" }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-    
-      <div className="bottom-grid">
-        <div className="chart-card heatmap-chart">
-        
-          <div className="heatmap-header">
-            <span className="nav-arrow" onClick={handlePrevMonth}>
-              ‹
-            </span>
-            <span className="month-title">{monthLabel}</span>
-            <span className="nav-arrow" onClick={handleNextMonth}>
-              ›
-            </span>
-          </div>
-
-        
-          <div className="heatmap-days">
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <span key={day}>{day}</span>
-            ))}
-          </div>
-
-          {/* Body */}
-          <div className="heatmap-body">
-            <div className="heatmap-label">Total Hour</div>
-
-            <div className="heatmap">
-              {Array.from({ length: 35 }).map((_, i) => (
-                <div key={i} className={`heat-cell level-${i % 4}`} />
-              ))}
+              <div className="info-tooltip">
+                This card shows the total trolley's processed during selected
+                duration
+              </div>
             </div>
           </div>
+
+          <h2>{analyticsData.stats.totalTrolleys}</h2>
         </div>
 
-        <div className="chart-card ladbf-chart">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={ladbfData}
-              margin={{ top: 10, right: 20, left: 20, bottom: 10 }}
-            >
-              <XAxis dataKey="time" tick={{ fontSize: 12 }} axisLine={false} />
+        <div className="info-card orange-bg">
+          <div className="card-top">
+            <p>AVG FILL ACCURACY</p>
+            <div className="info-tooltip-wrapper">
+              <span className="circle-info">i</span>
 
-              <YAxis tick={{ fontSize: 12 }} axisLine={false}>
-              
-                <Label
-                  value="LADER Value"
-                  angle={-90}
-                  position="insideLeft"
-                  style={{
-                    textAnchor: "middle",
-                    fill: "#4338ca",
-                    fontSize: 12,
-                  }}
+              <div className="info-tooltip">
+                This card shows the number of trolley's filled without
+                overfill/underfill incidents per 100 trolley fills.
+              </div>
+            </div>
+          </div>
+
+          <h2>{analyticsData.stats.avgFillAccuracy}</h2>
+        </div>
+
+        <div className="info-card soft-purple-bg">
+          <div className="card-top">
+            <p>ACTIVE ALERTS</p>
+            <div className="info-tooltip-wrapper">
+              <span className="circle-info">i</span>
+
+              <div className="info-tooltip">
+                This card determines the total number of alerts generated for
+                the selected duration.
+              </div>
+            </div>
+          </div>
+
+          <h2>{analyticsData.stats.activeAlerts}</h2>
+        </div>
+
+        <div className="info-card green-bg-light">
+          <div className="card-top">
+            <p>TROLLEY'S PROCESSED PER HOUR</p>
+            <div className="info-tooltip-wrapper">
+              <span className="circle-info">i</span>
+
+              <div className="info-tooltip">
+                This card shows average number of trolley's filled per hour.
+              </div>
+            </div>
+          </div>
+
+          <h2>{analyticsData.stats.processedPerHour}</h2>
+        </div>
+      </div>
+
+      {/* CHARTS */}
+      {/* TOP CHARTS */}
+      <div className="chart-grid-layout">
+        {/* BAR CHART */}
+        <div className="graph-section">
+          <h3>Shift Wise Compliance Trend</h3>
+
+          <div className="graph-card">
+            <div className="graph-header">
+              <div className="legend-box">
+                <span>
+                  <i className="dot-green"></i>
+                  Compliant
+                </span>
+
+                <span>
+                  <i className="dot-gray"></i>
+                  Non-Compliant
+                </span>
+              </div>
+
+              <div className="info-tooltip-wrapper">
+                <span className="circle-info">i</span>
+
+                <div className="info-tooltip">
+                  Shift-based count of successfully complaint and non-complaint
+                  trolley fills.
+                </div>
+              </div>
+            </div>
+
+            <div className="graph-body">
+              <div className="axis-side">
+                <div className="vertical-label">Number of Events</div>
+
+                <div className="scale-values">
+                  <span>240</span>
+                  <span>200</span>
+                  <span>160</span>
+                  <span>120</span>
+                  <span>80</span>
+                  <span>40</span>
+                  <span>0</span>
+                </div>
+              </div>
+
+              <div className="bars-wrapper">
+                {analyticsData.shiftCompliance.map((item, index) => (
+                  <div className="single-bar-group" key={index}>
+                    <div className="bar-stack-wrapper">
+                      {/* COMPLIANT */}
+                      <div
+                        className="bottom-green-bar"
+                        style={{
+                          height: `${(item.compliant / 240) * 120}px`,
+                        }}
+                      >
+                        <span>{item.compliant}</span>
+                      </div>
+
+                      {/* NON COMPLIANT */}
+                      <div
+                        className="top-gray-bar"
+                        style={{
+                          height: `${Math.max(
+                            (item.nonCompliant / 240) * 120,
+                            12,
+                          )}px`,
+                        }}
+                      >
+                        <span>{item.nonCompliant}</span>
+                      </div>
+                    </div>
+                    <p>{item.shift}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bottom-axis-title">Shifts</div>
+          </div>
+        </div>
+
+        {/* TOP RIGHT LINE GRAPH */}
+        <div className="graph-section">
+          <h3>Daily Efficiency Metrics Trend</h3>
+
+          <div className="graph-card">
+            <div className="graph-header align-end">
+              <div className="info-tooltip-wrapper">
+                <span className="circle-info">i</span>
+
+                <div className="info-tooltip">
+                  Day-wise operation filling efficiency performance.
+                </div>
+              </div>
+            </div>
+
+            <div className="line-area-wrapper">
+              <div className="line-axis-side">
+                <div className="vertical-label">Trolley Completion Target</div>
+
+                <div className="scale-values">
+                  <span>100%</span>
+                  <span>80%</span>
+                  <span>60%</span>
+                  <span>40%</span>
+                  <span>20%</span>
+                  <span>0</span>
+                </div>
+              </div>
+
+              <div className="line-chart-wrapper">
+                <div className="grid-line"></div>
+                <div className="grid-line"></div>
+                <div className="grid-line"></div>
+                <div className="grid-line"></div>
+
+                <svg viewBox="0 0 400 140" className="svg-chart">
+                  {/* LINE */}
+                  <polyline
+                    fill="none"
+                    stroke="#6b6b6b"
+                    strokeWidth="1.5"
+                    points={efficiencyPoints}
+                  />
+
+                  {analyticsData.efficiencyTrend.map((item, index) => {
+                    const x = 50 + index * 75;
+                    const y = 120 - item.value;
+
+                    return (
+                      <circle key={index} cx={x} cy={y} r="4" fill="#5b5bf7" />
+                    );
+                  })}
+
+                  {/* DATES */}
+                  <g fill="#777" fontSize="8" textAnchor="middle">
+                    {analyticsData.efficiencyTrend.map((item, index) => {
+                      const x = 50 + index * 75;
+
+                      return (
+                        <text key={index} x={x} y="130">
+                          {item.date}
+                        </text>
+                      );
+                    })}
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <div className="bottom-axis-title">Dates</div>
+          </div>
+        </div>
+      </div>
+
+      {/* FULL WIDTH BOTTOM GRAPH */}
+      <div className="graph-section full-width-graph">
+        <h3>Average Trolley Filling Time</h3>
+
+        <div className="graph-card">
+          <div className="graph-header align-end">
+            <div className="info-tooltip-wrapper">
+              <span className="circle-info">i</span>
+
+              <div className="info-tooltip">
+                Daily trend of average trolley filling duration.
+              </div>
+            </div>
+          </div>
+
+          <div className="line-area-wrapper">
+            <div className="line-axis-side">
+              <div className="vertical-label">Time (Minutes)</div>
+
+              <div className="scale-values">
+                <span>7m</span>
+                <span>6m</span>
+                <span>5m</span>
+                <span>4m</span>
+                <span>3m</span>
+                <span>2m</span>
+                <span>1m</span>
+                <span>0m</span>
+              </div>
+            </div>
+
+            <div className="line-chart-wrapper">
+              <div className="grid-line"></div>
+              <div className="grid-line"></div>
+              <div className="grid-line"></div>
+              <div className="grid-line"></div>
+              <div className="grid-line"></div>
+
+              <svg viewBox="0 0 1200 160" className="svg-chart">
+                {/* LINE */}
+                <polyline
+                  fill="none"
+                  stroke="#6b6b6b"
+                  strokeWidth="2"
+                  points={fillingTimePoints}
                 />
-              </YAxis>
 
-              <Tooltip />
+                {/* DOTS */}
+                {analyticsData.fillingTimeTrend.map((item, index) => {
+                  const x = 80 + index * 250;
 
-           
-              <Line
-                type="monotone"
-                dataKey="v1"
-                stroke="#7c3aed"
-                strokeWidth={2}
-                dot={false}
-              />
+                  const y = 140 - item.value * 15;
 
-              <Line
-                type="monotone"
-                dataKey="v2"
-                stroke="#ef4444"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+                  return (
+                    <circle key={index} cx={x} cy={y} r="5" fill="#5b5bf7" />
+                  );
+                })}
+
+                {/* DATES */}
+                <g fill="#777" fontSize="11" textAnchor="middle">
+                  {analyticsData.fillingTimeTrend.map((item, index) => {
+                    const x = 80 + index * 250;
+
+                    return (
+                      <text key={index} x={x} y="150">
+                        {item.date}
+                      </text>
+                    );
+                  })}
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div className="bottom-axis-title">Dates</div>
+
+          <div className="help-button">
+            <HelpCircle className="help-icon" strokeWidth={1.2} size={24} />
+          </div>
         </div>
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

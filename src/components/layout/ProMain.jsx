@@ -1,100 +1,93 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MdEmail, MdLock } from "react-icons/md";
+
 import "../styles/MainTemplate.css";
 
+import leftBanner from "../../assets/logos.png";
+import analyticsKart from "../../assets/analyticskart.png";
 import logo from "../../assets/resoluteai.png";
 
 const ProMain = () => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const defaultEmail = "admin@example.com";
-    const defaultPassword = "admin123";
-    if (email == defaultEmail && password == defaultPassword) {
+
+    // ADMIN
+    if (email === "admin@example.com" && password === "admin123") {
       navigate("/dashboard/home");
+    }
+
+    // OPERATOR
+    else if (email === "operator@example.com" && password === "operator123") {
+      navigate("/operator-dashboard");
     } else {
       setError("Invalid email or password");
     }
   };
   return (
     <div className="main-template-container">
+      {/* LEFT IMAGE SECTION */}
       <div className="template-content-box">
-        <h4>{"Landing Screen"}</h4>
+        <img src={leftBanner} alt="Banner" className="left-banner-image" />
       </div>
 
+      {/* LOGIN SECTION */}
       <div className="template-login-box">
-        <div
-          className="template-logo"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          {/* USE PRODUCT TITLE OR PRODUCT LOGO */}
-          <h5
-            style={{
-              marginTop: "30px",
-              fontSize: "25px",
-              color: "red",
-              // border: '2px solid red',
-              //  padding:'20px 20px'
-            }}
-          >
-            {" "}
-            Trolly verification
-          </h5>
-          {/* <img 
-            src={productLogo} 
-            alt="productLogo" 
-            className="template-dash" 
-            style={{
-              marginTop: '20px',
-              width: "100px",
-              height: "auto",
-              maxHeight: "50px",
-              objectFit: "contain"
-            }} 
-          /> */}
+        {/* LOGO */}
+        <div className="template-logo">
+          <img
+            src={analyticsKart}
+            alt="Analytics Kart"
+            className="analytics-logo"
+          />
         </div>
 
+        {/* FORM */}
         <form className="template-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <label>Email Id</label>
+
+          <div className="input-box">
+            <MdEmail className="input-icon" />
+
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
           <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter Your Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
 
-          {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
+          <div className="input-box">
+            <MdLock className="input-icon" />
+
+            <input
+              type="password"
+              placeholder="Enter Your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && <p className="error-text">{error}</p>}
+
           <button type="submit">Sign In</button>
         </form>
 
+        {/* POWERED BY */}
         <div className="template-powered-by">
-          <p
-            className="powered"
-            style={{
-              fontSize: "14px",
-              fontWeight: "bold",
-              marginBottom: "2px",
-            }}
-          >
-            Powered By
-          </p>
-          <img src={logo} alt="ResoluteAI Software" className="template-dash" />
+          <p className="powered-text">Powered By</p>
+
+          <img src={logo} alt="ResoluteAI" className="powered-logo" />
         </div>
       </div>
     </div>

@@ -27,6 +27,8 @@ import ing from "../../assets/resoluteai.png";
 import adminlogo from "../../assets/adminlogo.png";
 // import image from "../../assets/image.png";
 import ZodhaGpt from "../../assets/analyticskart.png";
+import olam from '../../assets/olam.png';
+import olamclient from '../../assets/olamclient.png';
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -134,15 +136,15 @@ const Dashboard = () => {
       <div className="main-content">
         <header className="app-header">
           <div className="sidebar-toggle-wrapper">
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            {/* <button className="sidebar-toggle" onClick={toggleSidebar}>
               <div className="toggle-icon"></div>
-            </button>
+            </button> */}
             <div className="current-page-title">
               <h3>{currentPage}</h3>
             </div>
           </div>
           <div className="hamburger-hover-wrapper">
-            {/* Hamburger Menu (unchanged) */}
+           
             <button
               className="hamburger-toggle"
               onClick={() => setHamburgerMenuOpen((prev) => !prev)}
@@ -153,7 +155,7 @@ const Dashboard = () => {
             </button>
             {isHamburgerMenuOpen && (
               <div className="hover-nav-card">
-                {/* Hamburger Items (unchanged) */}
+              
                 <button
                   className="nav-button"
                   onClick={() => {
@@ -167,15 +169,15 @@ const Dashboard = () => {
             )}
           </div>
 
-          <h1>Trolly verification</h1>
+          {/* <h1>Trolly verification</h1> */}
           <div className="app-client">
-            <img src={clientlogo} alt="Client Logo" />
+            <img src={olam} alt="Client Logo" />
           </div>
 
           {/* Admin Logo with Dropdown */}
           <div className="app-logo" ref={adminMenuRef}>
             <img
-              src={adminlogo}
+              src={olamclient}
               alt="admin Logo"
               className="admin-logo"
               onClick={() => setAdminMenuOpen((prev) => !prev)}

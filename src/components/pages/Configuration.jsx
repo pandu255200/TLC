@@ -1,56 +1,189 @@
 import React from "react";
+import { HelpCircle } from "lucide-react";
 import "../styles/config.css";
 
 const Configuration = () => {
   return (
-    <div className="config-page">
-      <div className="config-grid">
-        {/* Upper Threshold */}
-        <div className="config-card">
-          <h3>Upper Threshold</h3>
+    <div className="config-wrapper">
+      {/* PAGE PATH */}
+      <p className="config-path">
+        Menu / <span>Configuration</span>
+      </p>
 
-          <input type="text" placeholder="Min Range" />
-          <input type="text" placeholder="Max Range" />
+      {/* CONFIG CONTENT */}
+      <div className="config-sections">
+        {/* THRESHOLD */}
+        <div className="config-box">
+          <h3>Threshold</h3>
 
-          <button className="primary-btn">Update</button>
+          {/* TARGET VALUE */}
+          <input
+            type="text"
+            placeholder="Target Value"
+            onFocus={(e) => {
+              if (!e.target.value) {
+                e.target.value = "31";
+                e.target.classList.add("target-input");
+              }
+            }}
+          />
+
+          {/* MIN RANGE */}
+          <input
+            type="text"
+            placeholder="Min Range"
+            onFocus={(e) => {
+              if (!e.target.value) {
+                e.target.value = "28";
+                e.target.classList.add("min-range-input");
+              }
+            }}
+          />
+
+          {/* MAX RANGE */}
+          <input
+            type="text"
+            placeholder="Max Range"
+            onFocus={(e) => {
+              if (!e.target.value) {
+                e.target.value = "32";
+                e.target.classList.add("max-range-input");
+              }
+            }}
+          />
+
+          <button className="config-update-btn">Update</button>
         </div>
 
-        {/* Lower Threshold */}
-        <div className="config-card">
-          <h3>Lower Threshold</h3>
-
-          <input type="email" placeholder="Email Id" />
-
-          <select>
-            <option>Select User</option>
-            <option>User 1</option>
-            <option>User 2</option>
-          </select>
-
-          <input type="text" placeholder="SMS Notification" />
-
-          <button className="primary-btn">SMS Notification</button>
-        </div>
-
-        {/* Notification & Alert Configuration */}
-        <div className="config-card">
+        {/* ALERT CONFIG */}
+        <div className="config-box">
           <h3>Notification & Alert Configuration</h3>
 
-          <input type="text" placeholder="User ID" />
+          {/* SHIFT A */}
+          <div className="alert-row">
+            <button className="shift-btn">Shift A</button>
 
-          <select>
-            <option>Priority</option>
-            <option>High</option>
-            <option>Medium</option>
-            <option>Low</option>
-          </select>
+            <div className="custom-user-dropdown">
+              <div className="dropdown-selected">
+                Select User
+                <span>⌄</span>
+              </div>
 
-          <button className="primary-btn">Update</button>
+              <div className="dropdown-menu">
+                <label>
+                  <span>Ravi Kumar</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Sita Patel</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Amit Sharma</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Neha Gupta</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Vikram Singh</span>
+                  <input type="checkbox" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {/* SHIFT B */}
+          <div className="alert-row">
+            <button className="shift-btn">Shift B</button>
+
+            <div className="custom-user-dropdown">
+              <div className="dropdown-selected">
+                Select User
+                <span>⌄</span>
+              </div>
+
+              <div className="dropdown-menu">
+                <label>
+                  <span>Ravi Kumar</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Sita Patel</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Amit Sharma</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Neha Gupta</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Vikram Singh</span>
+                  <input type="checkbox" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {/* SHIFT C */}
+          <div className="alert-row">
+            <button className="shift-btn">Shift C</button>
+
+            <div className="custom-user-dropdown">
+              <div className="dropdown-selected">
+                Select User
+                <span>⌄</span>
+              </div>
+
+              <div className="dropdown-menu">
+                <label>
+                  <span>Ravi Kumar</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Sita Patel</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Amit Sharma</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Neha Gupta</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label>
+                  <span>Vikram Singh</span>
+                  <input type="checkbox" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button className="config-update-btn">Update</button>
         </div>
       </div>
 
-      {/* Help Button */}
-      <div className="help-btn">?</div>
+      {/* HELP BUTTON */}
+      <div className="config-help-btn">
+        <HelpCircle className="help-icon" strokeWidth={1.5} size={24} />
+      </div>
     </div>
   );
 };
