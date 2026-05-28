@@ -32,12 +32,12 @@ const Home = () => {
 
           <div className="status-dot">
             <span className="green-dot"></span>
-            Lidar 1
+            <span className="Lidan-names">Lidar 1</span>
           </div>
 
           <div className="status-dot">
             <span className="red-dot"></span>
-            Lidar 2
+          <span className="Lidan-names">Lidar 2</span>
           </div>
 
           <div className="status-dropdown-wrapper" ref={popupRef}>

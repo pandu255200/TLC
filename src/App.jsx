@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProMain from "./components/layout/ProMain";
+import Login from "./components/layout/Login";
 import Dashboard from "./components/layout/Dashboard";
 import Home from "./components/pages/Home";
 import Analytics from "./components/pages/Analytics";
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ProMain />} />
+        <Route path="/" element={<Login />} />
         <Route path="/operator-dashboard" element={<OperatorDashboard />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="home" element={<Home />} />

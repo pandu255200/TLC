@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdEmail, MdLock } from "react-icons/md";
+import { MdEmail, MdLock, MdLockOpen } from "react-icons/md";
 
 import "../styles/MainTemplate.css";
 
@@ -8,12 +8,13 @@ import leftBanner from "../../assets/logos.png";
 import analyticsKart from "../../assets/analyticskart.png";
 import logo from "../../assets/resoluteai.png";
 
-const ProMain = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,10 +68,20 @@ const ProMain = () => {
           <label>Password</label>
 
           <div className="input-box">
-            <MdLock className="input-icon" />
+            {showPassword ? (
+              <MdLockOpen
+                className="input-icon password-toggle-icon"
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <MdLock
+                className="input-icon password-toggle-icon"
+                onClick={() => setShowPassword(true)}
+              />
+            )}
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter Your Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -94,4 +105,4 @@ const ProMain = () => {
   );
 };
 
-export default ProMain;
+export default Login;

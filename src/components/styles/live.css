@@ -1,6 +1,6 @@
 .dash-wrapper {
   padding: 8px;
-  background: #f3f5f9;
+  background-color: #eeecf8;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -84,7 +84,7 @@
 }
 
 .violet-bg {
-  background: #e5e5ff;
+  background: #ddddfe;
 }
 
 .orange-bg {
@@ -113,7 +113,7 @@
 
 .chart-grid-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.8fr 0.8fr;
   gap: 10px;
 }
 
@@ -390,10 +390,10 @@
   justify-content: center;
 }
 
-.info-tooltip {
+/* .info-tooltip {
   position: absolute;
   top: 18px;
-  right: 0;
+  right: 100px;
 
   width: 150px;
 
@@ -417,7 +417,7 @@
   transition: 0.2s ease;
 
   z-index: 20;
-}
+} */
 
 .info-tooltip-wrapper:hover .info-tooltip {
   opacity: 1;

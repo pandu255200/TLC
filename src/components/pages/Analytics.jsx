@@ -19,14 +19,14 @@ const Analytics = () => {
 
       const lines = text.split("\n");
 
-      // Remove headers
+    
       const pointLines = lines.filter((line) => {
         const first = line.trim().split(" ")[0];
 
         return !isNaN(parseFloat(first));
       });
 
-      // SAMPLE DATA (important for performance)
+      
       const sampled = pointLines.filter((_, index) => index % 20 === 0);
 
       const points = sampled.map((line) => {
@@ -34,8 +34,6 @@ const Analytics = () => {
 
         return { x, y, z };
       });
-
-      // ===== CALCULATIONS =====
 
       const totalPoints = points.length;
 
@@ -50,8 +48,7 @@ const Analytics = () => {
         Math.round((avgHeight / maxHeight) * 100),
       );
 
-      // ===== CREATE ANALYTICS =====
-
+  
       const generatedData = {
         stats: {
           totalTrolleys: totalPoints,
@@ -190,6 +187,80 @@ const Analytics = () => {
   for (let i = roundedEfficiencyMax; i >= 0; i -= 5) {
     efficiencyYAxis.push(i);
   }
+
+  const downloadReport = () => {
+    let csvContent = "";
+
+
+    csvContent += "ANALYTICS REPORT\n\n";
+
+    csvContent += "SUMMARY\n";
+
+    csvContent += "Property,Value\n";
+
+    csvContent += `Total Trolleys Processed,${analyticsData.stats.totalTrolleys}\n`;
+
+    csvContent += `Average Fill Accuracy,${analyticsData.stats.avgFillAccuracy}\n`;
+
+    csvContent += `Active Alerts,${analyticsData.stats.activeAlerts}\n`;
+
+    csvContent += `Trolleys Processed Per Hour,${analyticsData.stats.processedPerHour}\n`;
+
+    csvContent += "\n\n";
+
+
+    csvContent += "SHIFT WISE COMPLIANCE TREND\n";
+
+    csvContent += "Shift,Compliant,Non-Compliant\n";
+
+    analyticsData.shiftCompliance.forEach((item) => {
+      csvContent += `${item.shift},${item.compliant},${item.nonCompliant}\n`;
+    });
+
+    csvContent += "\n\n";
+
+
+    csvContent += "DAILY EFFICIENCY METRICS TREND\n";
+
+    csvContent += "Date,Efficiency\n";
+
+    analyticsData.efficiencyTrend.forEach((item) => {
+      csvContent += `${item.date},${item.value}%\n`;
+    });
+
+    csvContent += "\n\n";
+
+
+    csvContent += "AVERAGE TROLLEY FILLING TIME\n";
+
+    csvContent += "Date,Time (Minutes)\n";
+
+    analyticsData.fillingTimeTrend.forEach((item) => {
+      csvContent += `${item.date},${item.value}\n`;
+    });
+
+ 
+
+    const blob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "Analytics_Report.csv";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+  };
   return (
     <div className="dash-wrapper">
       {/* HEADER */}
@@ -231,7 +302,9 @@ const Analytics = () => {
             <option value="Shift E">Shift E</option>
           </select>
 
-          <button className="report-download-btn">↓ Download Report</button>
+          <button className="report-download-btn" onClick={downloadReport}>
+            ↓ Download Report
+          </button>
         </div>
       </div>
 

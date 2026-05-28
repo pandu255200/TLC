@@ -194,3 +194,8 @@ body {
   width: 200px;
   object-fit: contain;
 }
+
+
+.password-toggle-icon {
+  cursor: pointer;
+}

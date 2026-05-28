@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import "../styles/usermanagement.css";
 import AddUserModal from "../pages/UserModal";
 
-import { Search, Pencil, Trash2, ChevronDown, CircleHelp } from "lucide-react";
+import {
+  Search,
+  Pencil,
+  Trash2,
+  ChevronDown,
+  CircleHelp,
+} from "lucide-react";
 
 const Users = () => {
   const [openModal, setOpenModal] = useState(false);
+
   const [isEdit, setIsEdit] = useState(false);
+
+  const [selectedUser, setSelectedUser] = useState(null);
 
   // SEARCH + FILTER STATES
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,10 +62,24 @@ const Users = () => {
     },
   ]);
 
-  // DELETE FUNCTION
+  // DELETE
   const handleDelete = (id) => {
     const filteredUsers = users.filter((user) => user.id !== id);
     setUsers(filteredUsers);
+  };
+
+  // ADD USER
+  const handleAddUser = (newUser) => {
+    setUsers([...users, newUser]);
+  };
+
+  // EDIT USER
+  const handleEditUser = (updatedUser) => {
+    const updatedUsers = users.map((user) =>
+      user.id === updatedUser.id ? updatedUser : user
+    );
+
+    setUsers(updatedUsers);
   };
 
   // FILTERED USERS
@@ -65,27 +88,41 @@ const Users = () => {
       user.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.name.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesRole = selectedRole === "" || user.role === selectedRole;
+    const matchesRole =
+      selectedRole === "" || user.role === selectedRole;
 
     const matchesStatus =
       selectedStatus === "" || user.status === selectedStatus;
 
-    const matchesShift = selectedShift === "" || user.shift === selectedShift;
+    const matchesShift =
+      selectedShift === "" || user.shift === selectedShift;
 
-    return matchesSearch && matchesRole && matchesStatus && matchesShift;
+    return (
+      matchesSearch &&
+      matchesRole &&
+      matchesStatus &&
+      matchesShift
+    );
   });
 
   return (
     <div className="users-page">
       {/* MODAL */}
       {openModal && (
-        <AddUserModal closeModal={() => setOpenModal(false)} isEdit={isEdit} />
+        <AddUserModal
+          closeModal={() => setOpenModal(false)}
+          isEdit={isEdit}
+          selectedUser={selectedUser}
+          handleAddUser={handleAddUser}
+          handleEditUser={handleEditUser}
+        />
       )}
 
       {/* Header */}
       <div className="users-header">
         <div className="header-left">
           <span className="menu-text">Menu /</span>
+
           <h2>User Management</h2>
         </div>
 
@@ -94,6 +131,7 @@ const Users = () => {
           onClick={() => {
             setOpenModal(true);
             setIsEdit(false);
+            setSelectedUser(null);
           }}
         >
           + Add User
@@ -121,7 +159,9 @@ const Users = () => {
             onChange={(e) => setSelectedRole(e.target.value)}
           >
             <option value="">Role</option>
+
             <option value="Admin">Admin</option>
+
             <option value="Operator">Operator</option>
           </select>
 
@@ -135,7 +175,9 @@ const Users = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
             <option value="">Status</option>
+
             <option value="Active">Active</option>
+
             <option value="Inactive">Inactive</option>
           </select>
 
@@ -149,8 +191,11 @@ const Users = () => {
             onChange={(e) => setSelectedShift(e.target.value)}
           >
             <option value="">Shift</option>
+
             <option value="Shift A">Shift A</option>
+
             <option value="Shift B">Shift B</option>
+
             <option value="Shift C">Shift C</option>
           </select>
 
@@ -177,17 +222,23 @@ const Users = () => {
               filteredUsers.map((user, i) => (
                 <tr key={i}>
                   <td>{user.id}</td>
+
                   <td>{user.name}</td>
+
                   <td>{user.role}</td>
+
                   <td>{user.shift}</td>
 
                   <td>
                     <span
                       className={`status-badge ${
-                        user.status === "Active" ? "active" : "inactive"
+                        user.status === "Active"
+                          ? "active"
+                          : "inactive"
                       }`}
                     >
                       {user.status}
+
                       <span className="dot"></span>
                     </span>
                   </td>
@@ -199,11 +250,15 @@ const Users = () => {
                       onClick={() => {
                         setOpenModal(true);
                         setIsEdit(true);
+                        setSelectedUser(user);
                       }}
                     />
 
                     {/* DELETE */}
-                    <Trash2 size={15} onClick={() => handleDelete(user.id)} />
+                    <Trash2
+                      size={15}
+                      onClick={() => handleDelete(user.id)}
+                    />
                   </td>
                 </tr>
               ))
