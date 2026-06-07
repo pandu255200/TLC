@@ -1,186 +1,94 @@
 import React from "react";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ChevronDown } from "lucide-react";
 import "../styles/config.css";
+import { configurationData } from "../data/AnalyticData";
 
 const Configuration = () => {
   return (
     <div className="config-wrapper">
-      {/* PAGE PATH */}
       <p className="config-path">
         Menu / <span>Configuration</span>
       </p>
 
-      {/* CONFIG CONTENT */}
       <div className="config-sections">
         {/* THRESHOLD */}
-        <div className="config-box">
+        <div className="config-box threshold-box">
           <h3>Threshold</h3>
 
-          {/* TARGET VALUE */}
-          <input
-            type="text"
-            placeholder="Target Value"
-            onFocus={(e) => {
-              if (!e.target.value) {
-                e.target.value = "31";
-                e.target.classList.add("target-input");
-              }
-            }}
-          />
+          <div className="threshold-row">
+            <input type="text" placeholder="Target Value" readOnly />
+            <input
+              type="text"
+              value={configurationData.threshold.targetValue}
+              readOnly
+            />
+          </div>
 
-          {/* MIN RANGE */}
-          <input
-            type="text"
-            placeholder="Min Range"
-            onFocus={(e) => {
-              if (!e.target.value) {
-                e.target.value = "28";
-                e.target.classList.add("min-range-input");
-              }
-            }}
-          />
+          <div className="threshold-row">
+            <input type="text" placeholder="Min Range" readOnly />
+            <input
+              type="text"
+              value={configurationData.threshold.minRange}
+              readOnly
+            />
+          </div>
 
-          {/* MAX RANGE */}
-          <input
-            type="text"
-            placeholder="Max Range"
-            onFocus={(e) => {
-              if (!e.target.value) {
-                e.target.value = "32";
-                e.target.classList.add("max-range-input");
-              }
-            }}
-          />
+          <div className="threshold-row">
+            <input type="text" placeholder="Max Range" readOnly />
+            <input
+              type="text"
+              value={configurationData.threshold.maxRange}
+              readOnly
+            />
+          </div>
 
           <button className="config-update-btn">Update</button>
         </div>
 
-        {/* ALERT CONFIG */}
-        <div className="config-box">
+        {/* NOTIFICATION CONFIG */}
+        <div className="config-box notification-box">
           <h3>Notification & Alert Configuration</h3>
 
-          {/* SHIFT A */}
-          <div className="alert-row">
-            <button className="shift-btn">Shift A</button>
+          {configurationData.shifts.map((shift) => (
+            <div className="alert-row" key={shift.id}>
+              <button className="shift-btn">{shift.name}</button>
 
-            <div className="custom-user-dropdown">
-              <div className="dropdown-selected">
-                Select User
-                <span>⌄</span>
-              </div>
+              <select className="user-select">
+                <option>Select User</option>
 
-              <div className="dropdown-menu">
-                <label>
-                  <span>Ravi Kumar</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Sita Patel</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Amit Sharma</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Neha Gupta</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Vikram Singh</span>
-                  <input type="checkbox" />
-                </label>
-              </div>
+                {configurationData.users.map((user, index) => (
+                  <option key={index}>{user}</option>
+                ))}
+              </select>
             </div>
-          </div>
+          ))}
 
-          {/* SHIFT B */}
-          <div className="alert-row">
-            <button className="shift-btn">Shift B</button>
+          <button className="config-update-btn">Update</button>
+        </div>
 
-            <div className="custom-user-dropdown">
-              <div className="dropdown-selected">
-                Select User
-                <span>⌄</span>
-              </div>
+        {/* COMPLIANCE THRESHOLD */}
+        <div className="config-box compliance-box">
+          <h3>Compliance Threshold</h3>
 
-              <div className="dropdown-menu">
-                <label>
-                  <span>Ravi Kumar</span>
-                  <input type="checkbox" />
-                </label>
+          <div className="slider-container">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={configurationData.complianceThreshold}
+              className="compliance-slider"
+              readOnly
+            />
 
-                <label>
-                  <span>Sita Patel</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Amit Sharma</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Neha Gupta</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Vikram Singh</span>
-                  <input type="checkbox" />
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {/* SHIFT C */}
-          <div className="alert-row">
-            <button className="shift-btn">Shift C</button>
-
-            <div className="custom-user-dropdown">
-              <div className="dropdown-selected">
-                Select User
-                <span>⌄</span>
-              </div>
-
-              <div className="dropdown-menu">
-                <label>
-                  <span>Ravi Kumar</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Sita Patel</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Amit Sharma</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Neha Gupta</span>
-                  <input type="checkbox" />
-                </label>
-
-                <label>
-                  <span>Vikram Singh</span>
-                  <input type="checkbox" />
-                </label>
-              </div>
-            </div>
+            <span className="slider-value">
+              {configurationData.complianceThreshold}%
+            </span>
           </div>
 
           <button className="config-update-btn">Update</button>
         </div>
       </div>
 
-      {/* HELP BUTTON */}
       <div className="config-help-btn">
         <HelpCircle className="help-icon" strokeWidth={1.5} size={24} />
       </div>

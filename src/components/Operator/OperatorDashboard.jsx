@@ -5,14 +5,16 @@ import analyticsKart from "../../assets/analyticskart.png";
 import olamLogo from "../../assets/olam.png"; // your olam logo
 import profileImg from "../../assets/olamclient.png"; // profile image
 import resoluteLogo from "../../assets/resoluteai.png";
+// import { Package, Info, LogOut, Menu } from "lucide-react";
 
-import { Package, Info, LogOut } from "lucide-react";
+import { Package, Info, LogOut, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const OperatorDashboard = () => {
   const navigate = useNavigate();
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     navigate("/");
@@ -56,13 +58,32 @@ const OperatorDashboard = () => {
       {/* HEADER */}
       <div className="operator-header">
         <div className="Operator-header-left">
-          <img
-            src={analyticsKart}
-            alt="Analytics Kart"
-            className="analytics-logo"
-          />
+          <button
+            className="hamburger-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <Menu size={24} />
+          </button>
 
-          <span className="live-text">Live</span>
+          {menuOpen ? (
+            <>
+              <img
+                src={analyticsKart}
+                alt="Analytics Kart"
+                className="analytics-logo"
+              />
+              <span className="live-text">Live</span>
+            </>
+          ) : (
+            <>
+              <img
+                src={resoluteLogo}
+                alt="Resolute AI"
+                className="analytics-logo"
+              />
+              <span className="live-text">Live</span>
+            </>
+          )}
         </div>
 
         <div className="header-right">
@@ -203,9 +224,12 @@ const OperatorDashboard = () => {
 
       {/* FOOTER */}
       <div className="operator-footer">
-        <p>Powered By</p>
-
-        <img src={resoluteLogo} alt="Resolute" className="footer-logo" />
+        {menuOpen && (
+          <>
+            <p>Powered By</p>
+            <img src={resoluteLogo} alt="Resolute" className="footer-logo" />
+          </>
+        )}
       </div>
     </div>
   );

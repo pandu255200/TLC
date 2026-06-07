@@ -242,7 +242,7 @@
 
 .top-gray-bar,
 .bottom-green-bar {
-  width: 42px;
+  width: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -473,3 +473,41 @@
 .react-datepicker__day:hover {
   background: #ececff !important;
 }
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.react-datepicker {
+  font-size: 14px;
+  border: 1px solid #dcdcdc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Datepicker Fix */
+
+.dash-wrapper,
+.dash-header,
+.dash-filter-box {
+  overflow: visible !important;
+}
+
+.react-datepicker-popper {
+  z-index: 99999 !important;
+}
+
+.react-datepicker-wrapper {
+  overflow: visible !important;
+}
+
+.react-datepicker {
+  z-index: 99999 !important;
+}
+
+.react-datepicker__tab-loop {
+  position: relative;
+  z-index: 99999 !important;
+}
+
+
+

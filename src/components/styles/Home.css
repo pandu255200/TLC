@@ -119,60 +119,6 @@
   position: relative;
 }
 
-.status-popup {
-  position: absolute;
-
-  top: 22px;
-
-  left: 0;
-
-  width: 180px;
-
-  background: #ffffff;
-
-  border: 1px solid #dcdcdc;
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-
-  border-radius: 2px;
-
-  z-index: 999;
-}
-
-.status-popup table {
-  width: 100%;
-
-  border-collapse: collapse;
-}
-
-.status-popup th {
-  background: #ececec;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  color: #333;
-
-  padding: 5px 10px;
-
-  text-align: left;
-}
-
-.status-popup td {
-  font-size: 10px;
-
-  color: #444;
-
-  padding: 5px 10px;
-
-  background: #f7f7f7;
-}
-
-.status-popup tbody tr:nth-child(even) td {
-  background: #ededed;
-}
-
 .stats-grid {
   display: grid;
 
@@ -218,6 +164,44 @@
 
   color: #111827;
 }
+.status-popup {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 390px;
+  left: 80px;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.status-popup table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.status-popup th {
+  background: #e8e8ee;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.status-popup td {
+  padding: 10px 16px;
+  font-size: 15px;
+}
+
+.status-popup tbody tr:nth-child(even) {
+  background: #f4f4f7;
+}
+
+.status-popup tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
 
 /* CARD COLORS */
 
@@ -251,12 +235,9 @@
 
 .charts-grid {
   display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(500px, 1fr));
+  gap: 16px;
 }
-
 .chart-wrapper {
   display: flex;
 
@@ -383,24 +364,15 @@
 .bar-chart,
 .efficiency-chart {
   flex: 1;
-
   display: flex;
-
-  justify-content: space-around;
-
+  justify-content: space-evenly;
   align-items: flex-end;
-
   height: 150px;
-
   border-left: 1px solid #9e9e9e;
-
   border-bottom: 1px solid #9e9e9e;
-
-  padding: 0 6px;
-
+  padding: 0 15px;
   position: relative;
 }
-
 .chart-group {
   display: flex;
 
@@ -428,7 +400,7 @@
 .gray-bar,
 .red-bar,
 .green-bar {
-  width: 32px;
+  width: 42px;
 
   display: flex;
 
@@ -514,80 +486,6 @@
   margin-top: 20px;
 }
 
-.table-wrapper {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
-}
-
-.table-header {
-  display: flex;
-
-  align-items: center;
-
-  gap: 6px;
-
-  padding-left: 2px;
-}
-
-.table-header h3 {
-  font-size: 12px;
-
-  font-weight: 700;
-
-  color: #2d2d2d;
-}
-
-.table-card {
-  background: #ffffff;
-
-  border: 1px solid #dfe3eb;
-
-  border-radius: 2px;
-
-  padding: 6px;
-}
-
-.table-card table {
-  width: 100%;
-
-  border-collapse: separate;
-
-  border-spacing: 0 2px;
-}
-
-.table-card th {
-  background: #ececec;
-
-  color: #333;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  padding: 6px 12px;
-
-  text-align: left;
-}
-
-.table-card td {
-  background: #f5f5f5;
-
-  font-size: 10px;
-
-  color: #444;
-
-  padding: 6px 12px;
-
-  line-height: 1.5;
-}
-
-.table-card tbody tr:nth-child(even) td {
-  background: #ededed;
-}
-
 .info-wrapper {
   position: relative;
 
@@ -662,7 +560,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .help-button {
@@ -697,4 +595,188 @@ body {
 .Lidan-names {
   font-size: 17px;
   font-weight: 500;
+}
+
+/* ==========================
+   EFFICIENCY SECTION
+========================== */
+
+.efficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.efficiency-grid .chart-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.efficiency-grid .chart-card {
+  background: #fff;
+  border: 1px solid #b8b6ff;
+  border-radius: 2px;
+  padding: 8px;
+  min-height: 195px;
+  position: relative;
+}
+
+/* Reuse same header style as top charts */
+
+.efficiency-grid .chart-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Reuse same legend style */
+
+.efficiency-grid .chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: #555;
+}
+
+.efficiency-grid .chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Main chart layout */
+
+.efficiency-grid .chart-main {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Reuse same y-axis style */
+
+.efficiency-grid .y-axis-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 140px;
+  margin-right: 4px;
+}
+
+.efficiency-grid .y-axis-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10px;
+  font-weight: 600;
+  color: #6666ff;
+}
+
+.efficiency-grid .y-axis-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 135px;
+  font-size: 9px;
+  color: #777;
+}
+
+/* Day / Month Charts */
+
+.small-bar-chart {
+  flex: 1;
+  height: 140px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  border-left: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+  padding: 0 10px;
+  position: relative;
+}
+
+.small-chart-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.small-gray-bar {
+  width: 42px;
+  background: #e5e5e5;
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.small-chart-group p {
+  position: absolute;
+  bottom: -18px;
+  font-size: 9px;
+  color: #666;
+  white-space: nowrap;
+}
+
+/* Year Chart */
+
+.year-chart {
+  flex: 1;
+  height: 140px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  border-left: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+  padding: 0 6px;
+}
+
+.year-chart-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+}
+
+.year-bar {
+  width: 10px;
+  background: #7b68ee;
+  border-radius: 2px 2px 0 0;
+}
+
+.year-chart-group p {
+  position: absolute;
+  bottom: -18px;
+  font-size: 8px;
+  color: #666;
+  white-space: nowrap;
+  transform: rotate(-35deg);
+}
+
+/* Axis Title */
+
+.efficiency-grid .x-axis-title {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6666ff;
+  margin-top: 22px;
+}
+
+.previous-bar {
+  background: #eab308; /* Yellow */
+  color: #000;
+}
+
+.latest-bar {
+  background: #00cc22; /* Green */
+  color: #000;
 }
