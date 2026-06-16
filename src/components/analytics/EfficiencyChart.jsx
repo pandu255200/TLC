@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/live.css";
+import "../styles/analytics.css";
 
 const EfficiencyChart = ({ data, efficiencyYAxis }) => {
   const latestData = data.slice(-5);
@@ -31,9 +31,12 @@ const EfficiencyChart = ({ data, efficiencyYAxis }) => {
             <div className="vertical-label">Trolley Completion Target</div>
 
             <div className="scale-values">
-              {efficiencyYAxis.map((value) => (
-                <span key={value}>{value}%</span>
-              ))}
+              <span>100%</span>
+              <span>80%</span>
+              <span>60%</span>
+              <span>40%</span>
+              <span>20%</span>
+              <span>0%</span>
             </div>
           </div>
 

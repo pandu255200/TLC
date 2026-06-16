@@ -9,17 +9,17 @@ const analyticsData = {
     shiftCompliance: [
         {
             shift: "Shift 1",
-            compliant: 100,
+            compliant: 188,
             nonCompliant: 20,
         },
         {
             shift: "Shift 2",
-            compliant: 120,
+            compliant: 190,
             nonCompliant: 15,
         },
         {
             shift: "Shift 3",
-            compliant: 151,
+            compliant: 200,
             nonCompliant: 10,
         },
     ],
@@ -69,11 +69,12 @@ const analyticsData = {
         { date: "08/06/26", value: 34 },
         { date: "09/06/26", value: 33 },
 
-        { date: "10/06/26", value: 35 },
-        { date: "11/06/26", value: 38 },
-        { date: "12/06/26", value: 40 },
-        { date: "13/06/26", value: 42 },
-        { date: "14/06/26", value: 45 }
+        { date: "10/06/26", value: 88 },
+        { date: "11/06/26", value: 90 },
+        { date: "12/06/26", value: 95 },
+        { date: "13/06/26", value: 97 },
+        { date: "14/06/26", value: 98 },
+        { date: "15/06/26", value: 100 },
     ],
 
     fillingTimeTrend: [
@@ -125,7 +126,8 @@ const analyticsData = {
         { date: "11/06/26", value: 2.5 },
         { date: "12/06/26", value: 2.7 },
         { date: "13/06/26", value: 2.9 },
-        { date: "14/06/26", value: 3.1 }
+        { date: "14/06/26", value: 3.1 },
+        { date: "15/06/26", value: 4.0 },
     ]
 };
 export const homeData = {
@@ -146,14 +148,14 @@ export const homeData = {
         {
             title: "YESTERDAY'S EFFICIENCY",
             value: "97%",
-            className: "purple-card",
+            className: "peach-card",
             tooltip:
                 "Overall filling achieved today.",
         },
         {
             title: "COMPLIANCE",
             value: "20",
-            className: "peach-card",
+            className: "purple-card",
             tooltip: "Whenever a trolley filled properly 90% or above that trolley is recorded as compliance ",
         },
         {
@@ -182,53 +184,71 @@ export const homeData = {
     alertTrend: [
         {
             shift: "Shift 1",
-            underfill: 7,
-            overfill: 3,
+            value: "90",
         },
         {
             shift: "Shift 2",
-            underfill: 4,
-            overfill: 2,
+             value: "95",
         },
         {
             shift: "Shift 3",
-            underfill: 2,
-            overfill: 5,
+             value: "20",
         },
     ],
 
     efficiencyTrend: [
         {
-            week: "Week 1",
+            Day: "Mon",
             value: 76,
         },
         {
-            week: "Week 2",
+            Day: "Tue",
             value: 81,
         },
         {
-            week: "Week 3",
+            Day: "Wed ",
             value: 84,
         },
         {
-            week: "Week 4",
+            Day: "Thu",
             value: 89,
         },
         {
-            week: "Week 5",
+            Day: "Fri",
             value: 92,
         },
+        {
+            Day: "Sat",
+            value: 10,
+        },
+        {
+            Day: "Sun",
+            value: 15,
+        },
     ],
-    dayWiseEfficiency: [
-        { label: "LB1", value: 7 },
-        { label: "LB2", value: 4 },
-        { label: "LB3", value: 2 },
-    ],
+    // dayWiseEfficiency: [
+    //     { label: "LB1", value: 7 },
+    //     { label: "LB2", value: 4 },
+    //     { label: "LB3", value: 2 },
+    // ],
 
     monthWiseEfficiency: [
-        { label: "LB1", value: 7 },
-        { label: "LB2", value: 4 },
-        { label: "LB3", value: 2 },
+         {
+            Week: "Week 1",
+            value: 76,
+        },
+        {
+            Week: "Week 2",
+            value: 81,
+        },
+        {
+            Week: "Week 3 ",
+            value: 84,
+        },
+        {
+            Week: "Week 4",
+            value: 89,
+        },
     ],
 
     yearWiseEfficiency: [
@@ -244,6 +264,14 @@ export const homeData = {
         { month: "Oct", value: 88 },
         { month: "Nov", value: 88 },
         { month: "Dec", value: 88 },
+    ],
+
+    avgEfficiencyPerYear: [
+        {
+            year: "2026",
+            value: 85,
+        }
+        
     ],
 
 };
@@ -268,17 +296,17 @@ export const configurationData = {
     shifts: [
         {
             id: "A",
-            name: "Shift A",
+            name: "Shift 1",
             selectedUsers: [],
         },
         {
             id: "B",
-            name: "Shift B",
+            name: "Shift 2",
             selectedUsers: [],
         },
         {
             id: "C",
-            name: "Shift C",
+            name: "Shift 3",
             selectedUsers: [],
         },
     ],

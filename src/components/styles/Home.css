@@ -47,10 +47,10 @@
 }
 
 .breadcrumb span {
-  font-size: 12px;
+  font-size: 13px;
 
   color: #4a67ff;
-
+  margin: 0;
   font-weight: 600;
 }
 
@@ -206,23 +206,23 @@
 /* CARD COLORS */
 
 .purple-card {
-  background-color: #e5e5ff;
+  background-color: #5051f926;
 }
 
 .peach-card {
-  background-color: #fce4d6;
+  background-color: #ff7b0026;
 }
 
 .lavender-card {
-  background-color: #eae0f4;
+  background-color: #9747ff26;
 }
 
 .pink-card {
-  background-color: #f8cecc;
+  background-color: #f9313126;
 }
 
 .green-card {
-  background-color: #d5e8d4;
+  background-color: #00c31726;
 }
 
 .stat-top {
@@ -486,6 +486,28 @@
   margin-top: 20px;
 }
 
+.efficiency-bar {
+  width: 80px;
+  background: #ff7b00b8;
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.efficiency-bar span {
+  margin-top: 5px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #000;
+}
+
+.chart-group p {
+  margin-top: 8px;
+  font-size: 9px;
+  /* color: #666; */
+}
 .info-wrapper {
   position: relative;
 
@@ -525,11 +547,11 @@
 
   top: 22px;
 
-  left: 30px;
+  left: -150px;
 
   transform: translateX(-30px);
 
-  width: 170px;
+  width: 200px;
 
   background: #ece9f7;
 
@@ -687,12 +709,19 @@ body {
   flex: 1;
   height: 140px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-end;
-  border-left: 1px solid #9e9e9e;
-  border-bottom: 1px solid #9e9e9e;
-  padding: 0 10px;
+  border-left: 1px solid #8f8f8f;
+  border-bottom: 1px solid #8f8f8f;
+  padding: 0 8px;
   position: relative;
+  background-image: repeating-linear-gradient(
+    to top,
+    #d9d9d9 0px,
+    #d9d9d9 1px,
+    transparent 1px,
+    transparent 28px
+  );
 }
 
 .small-chart-group {
@@ -705,15 +734,15 @@ body {
 }
 
 .small-gray-bar {
-  width: 42px;
-  background: #e5e5e5;
-  color: #000;
-  font-size: 10px;
-  font-weight: 700;
+  width: 46px;
+  background: #00c317b2;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 4px;
+  padding-top: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #000;
 }
 
 .small-chart-group p {
@@ -730,11 +759,20 @@ body {
   flex: 1;
   height: 140px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-end;
-  border-left: 1px solid #9e9e9e;
-  border-bottom: 1px solid #9e9e9e;
-  padding: 0 6px;
+  border-left: 1px solid #8f8f8f;
+  border-bottom: 1px solid #8f8f8f;
+  padding: 0 10px;
+  position: relative;
+
+  background-image: repeating-linear-gradient(
+    to top,
+    #d9d9d9 0px,
+    #d9d9d9 1px,
+    transparent 1px,
+    transparent 28px
+  );
 }
 
 .year-chart-group {
@@ -747,18 +785,36 @@ body {
 }
 
 .year-bar {
-  width: 10px;
-  background: #7b68ee;
+  width: 12px;
+  background: #79e9ffcc;
   border-radius: 2px 2px 0 0;
 }
-
 .year-chart-group p {
+  position: absolute;
+  bottom: -20px;
+  font-size: 9px;
+  color: #666;
+  white-space: nowrap;
+  /* transform: none; */
+}
+.month-label {
   position: absolute;
   bottom: -18px;
   font-size: 8px;
   color: #666;
-  white-space: nowrap;
   transform: rotate(-35deg);
+}
+
+.avg-bar {
+  width: 150px;
+  background: #4039cbb2;
+  border-radius: 2px 2px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 6px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 /* Axis Title */
@@ -772,11 +828,11 @@ body {
 }
 
 .previous-bar {
-  background: #eab308; /* Yellow */
+  background: #ecb30bb2; /* Yellow */
   color: #000;
 }
 
 .latest-bar {
-  background: #00cc22; /* Green */
+  background: #f5cf5c; /* Green */
   color: #000;
 }

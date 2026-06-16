@@ -1,6 +1,6 @@
 import React from "react";
 import { HelpCircle } from "lucide-react";
-import "../styles/live.css";
+import "../styles/analytics.css";
 
 const FillingTimeChart = ({ data, fillingTimeYAxis }) => {
   const latestData = data.slice(-5);

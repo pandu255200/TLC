@@ -19,16 +19,16 @@ import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import "../styles/Prototype.css";
+import "./Prototype.css";
 import clientlogo from "../../assets/clientlogo.png";
-import "../styles/analytics.css";
+import "./analytics.css";
 
 import ing from "../../assets/resoluteai.png";
 import adminlogo from "../../assets/adminlogo.png";
 // import image from "../../assets/image.png";
 import ZodhaGpt from "../../assets/analyticskart.png";
-import olam from '../../assets/olam.png';
-import olamclient from '../../assets/olamclient.png';
+import olam from "../../assets/olam.png";
+import olamclient from "../../assets/olamclient.png";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -57,17 +57,25 @@ const Dashboard = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const role = localStorage.getItem("role");
 
   const getPageTitle = (pathname) => {
     switch (pathname) {
       case "/dashboard/home":
         return "Home";
+
       case "/dashboard/analytics":
         return "Analytics";
+
       case "/dashboard/config":
         return "Configuration";
+
       case "/dashboard/users":
         return "User Management";
+
+      case "/dashboard/live":
+        return "Live ";
+
       default:
         return "";
     }
@@ -84,90 +92,125 @@ const Dashboard = () => {
         </div>
 
         <nav className="nav-links">
-          {/* Nav Links (unchanged) */}
-          <NavLink
-            to="/dashboard/home"
-            end
-            className={({ isActive }) =>
-              `nav-button ${isActive ? "active" : ""}`
-            }
-          >
-            <FaHome />
-            <span>Home</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/analytics"
-            end
-            className={({ isActive }) =>
-              `nav-button ${isActive ? "active" : ""}`
-            }
-          >
-            <FaChartBar />
-            <span>Analytics</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/config"
-            end
-            className={({ isActive }) =>
-              `nav-button ${isActive ? "active" : ""}`
-            }
-          >
-            <FaSlidersH />
-            <span>Configuration</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/users"
-            end
-            className={({ isActive }) =>
-              `nav-button ${isActive ? "active" : ""}`
-            }
-          >
-            <FaUserCog />
-            <span>User Management</span>
-          </NavLink>
+          {role === "admin" && (
+            <>
+              <NavLink to="/dashboard/home" className="nav-button">
+                <FaHome />
+                <span>Home</span>
+              </NavLink>
+
+              <NavLink to="/dashboard/analytics" className="nav-button">
+                <FaChartBar />
+                <span>Analytics</span>
+              </NavLink>
+
+              <NavLink to="/dashboard/config" className="nav-button">
+                <FaSlidersH />
+                <span>Configuration</span>
+              </NavLink>
+
+              <NavLink to="/dashboard/users" className="nav-button">
+                <FaUserCog />
+                <span>User Management</span>
+              </NavLink>
+            </>
+          )}
+
+          {role === "operator" && (
+            <NavLink to="/dashboard/live" className="nav-button">
+              <FaHome />
+              <span>Operator</span>
+            </NavLink>
+          )}
         </nav>
 
-        <div className="footer-logo">
-          <p className="powered">Powered by</p>
-          <img src={ing} alt="ResoluteAI" />
-        </div>
+        {!(role === "operator" && !isSidebarOpen) && (
+          <div className="footer-logo">
+            <p className="powered">Powered by</p>
+            <img src={ing} alt="ResoluteAI" />
+          </div>
+        )}
       </div>
 
       <div className="main-content">
         <header className="app-header">
           <div className="sidebar-toggle-wrapper">
-            {/* <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle" onClick={toggleSidebar}>
               <div className="toggle-icon"></div>
-            </button> */}
+            </button>
+
             <div className="current-page-title">
-              <h3>{currentPage}</h3>
+              {role === "operator" && !isSidebarOpen ? (
+                <div className="operator-header-title">
+                  <img
+                    src={ing}
+                    alt="Resolute AI"
+                    className="operator-header-logo"
+                  />
+                  <h3>{currentPage}</h3>
+                </div>
+              ) : (
+                <h3>{currentPage}</h3>
+              )}
             </div>
           </div>
-          <div className="hamburger-hover-wrapper">
-           
-            <button
-              className="hamburger-toggle"
-              onClick={() => setHamburgerMenuOpen((prev) => !prev)}
-            >
-              <div className="bar"></div>
-              <div className="bar"></div>
-              <div className="bar"></div>
-            </button>
-            {isHamburgerMenuOpen && (
-              <div className="hover-nav-card">
-              
-                <button
-                  className="nav-button"
-                  onClick={() => {
-                    navigate("/dashboard/home");
-                    setHamburgerMenuOpen(false);
-                  }}
-                >
-                  <FaHome /> <span>Home</span>
-                </button>
-              </div>
-            )}
-          </div>
+          {!(role === "operator" && !isSidebarOpen) && (
+            <div className="hamburger-hover-wrapper">
+              <button
+                className="hamburger-toggle"
+                onClick={() => setHamburgerMenuOpen((prev) => !prev)}
+              >
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+              </button>
+
+              {isHamburgerMenuOpen && (
+                <div className="hover-nav-card">
+                  <button
+                    className="nav-button"
+                    onClick={() => {
+                      navigate("/dashboard/home");
+                      setHamburgerMenuOpen(false);
+                    }}
+                  >
+                    <FaHome />
+                    <span>Home</span>
+                  </button>
+                  <button
+                    className="nav-button"
+                    onClick={() => {
+                      navigate("/dashboard/analytics");
+                      setHamburgerMenuOpen(false);
+                    }}
+                  >
+                    <FaChartBar />
+                    <span>Analytics</span>
+                  </button>
+                  <button
+                    className="nav-button"
+                    onClick={() => {
+                      navigate("/dashboard/config");
+                      setHamburgerMenuOpen(false);
+                    }}
+                  >
+                    <FaSlidersH />
+                    <span>Configuration</span>
+                  </button>
+                  <button
+                    className="nav-button"
+                    onClick={() => {
+                      navigate("/dashboard/users");
+                      setHamburgerMenuOpen(false);
+                    }}
+                  >
+                    <FaUserCog />
+                    <span>User Management</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* <h1>Trolly verification</h1> */}
           <div className="app-client">

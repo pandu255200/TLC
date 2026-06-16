@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/live.css";
+import "../styles/analytics.css";
 
 import AnalyticsFilters from "../analytics/AnalyticsFilters";
 import StatCards from "../analytics/StatCards";

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/live.css";
+import "../styles/analytics.css";
 
 import dayjs from "dayjs";
 
@@ -61,11 +61,9 @@ const AnalyticsFilters = ({
           className="shift-select"
         >
           <option value="">Shift</option>
-          <option value="Shift A">Shift A</option>
-          <option value="Shift B">Shift B</option>
-          <option value="Shift C">Shift C</option>
-          <option value="Shift D">Shift D</option>
-          <option value="Shift E">Shift E</option>
+          <option value="Shift A">Shift 1</option>
+          <option value="Shift B">Shift 2</option>
+          <option value="Shift C">Shift 3</option>
         </select>
 
         <button className="report-download-btn" onClick={downloadReport}>

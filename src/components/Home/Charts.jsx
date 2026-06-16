@@ -7,66 +7,45 @@ const ChartsSection = () => {
     <div className="charts-grid">
       {/* ALERT TREND */}
       <div className="chart-wrapper">
-        <h3 className="chart-title">Alert Trend by shift</h3>
+        <h3 className="chart-title">Shift Wise Efficiency (Today)</h3>
 
         <div className="chart-card">
           <div className="chart-top-row">
-            <div className="chart-legend">
-              <span>
-                <i className="legend-gray"></i>
-                Underfill
-              </span>
-
-              <span>
-                <i className="legend-red"></i>
-                Overfill
-              </span>
-            </div>
+            <div></div>
 
             <div className="info-wrapper">
               <span className="info-circle">i</span>
 
               <div className="info-tooltip">
-                Shift-wise comparison of overfill and underfill alerts.
+                Shift-wise efficiency comparison.
               </div>
             </div>
           </div>
 
           <div className="chart-main">
             <div className="y-axis-section">
-              <div className="y-axis-title">Alerts</div>
+              <div className="y-axis-title">Efficiency (%)</div>
 
               <div className="y-axis-values">
-                <span>10</span>
-                <span>8</span>
-                <span>6</span>
-                <span>4</span>
-                <span>2</span>
-                <span>0</span>
+                <span>100%</span>
+                <span>80%</span>
+                <span>60%</span>
+                <span>40%</span>
+                <span>20%</span>
+                <span>0%</span>
               </div>
             </div>
 
             <div className="bar-chart">
               {homeData.alertTrend.map((item, index) => (
                 <div className="chart-group" key={index}>
-                  <div className="bar-stack">
-                    <div
-                      className="gray-bar"
-                      style={{
-                        height: `${item.underfill * 14}px`,
-                      }}
-                    >
-                      <span>{item.underfill}</span>
-                    </div>
-
-                    <div
-                      className="red-bar"
-                      style={{
-                        height: `${item.overfill * 14}px`,
-                      }}
-                    >
-                      <span>{item.overfill}</span>
-                    </div>
+                  <div
+                    className="efficiency-bar"
+                    style={{
+                      height: `${item.value}%`,
+                    }}
+                  >
+                    <span>{item.value}%</span>
                   </div>
 
                   <p>{item.shift}</p>
@@ -81,7 +60,7 @@ const ChartsSection = () => {
 
       {/* EFFICIENCY TREND */}
       <div className="chart-wrapper">
-        <h3 className="chart-title">Fill Efficiency Trend</h3>
+        <h3 className="chart-title">Week Wise Efficiency (This Week)</h3>
 
         <div className="chart-card">
           <div className="chart-top-row">
@@ -98,7 +77,7 @@ const ChartsSection = () => {
 
           <div className="chart-main">
             <div className="y-axis-section">
-              <div className="y-axis-title">Efficiency</div>
+              <div className="y-axis-title">Efficiency (%)</div>
 
               <div className="y-axis-values">
                 <span>100%</span>
@@ -128,13 +107,13 @@ const ChartsSection = () => {
                     </div>
                   </div>
 
-                  <p>{item.week}</p>
+                  <p>{item.Day}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="x-axis-title">Time Stamp</div>
+          <div className="x-axis-title">Days</div>
         </div>
       </div>
     </div>

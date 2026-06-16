@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdEmail, MdLock, MdLockOpen } from "react-icons/md";
 
-import "../styles/MainTemplate.css";
+import "./MainTemplate.css";
 
 import leftBanner from "../../assets/logos.png";
 import analyticsKart from "../../assets/analyticskart.png";
@@ -19,14 +19,12 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ADMIN
     if (email === "admin@example.com" && password === "admin123") {
+      localStorage.setItem("role", "admin");
       navigate("/dashboard/home");
-    }
-
-    // OPERATOR
-    else if (email === "operator@example.com" && password === "operator123") {
-      navigate("/operator-dashboard");
+    } else if (email === "operator@example.com" && password === "operator123") {
+      localStorage.setItem("role", "operator");
+      navigate("/dashboard/live");
     } else {
       setError("Invalid email or password");
     }

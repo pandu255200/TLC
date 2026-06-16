@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import "../styles/usermanagement.css";
 import AddUserModal from "../pages/UserModal";
 
-import {
-  Search,
-  Pencil,
-  Trash2,
-  ChevronDown,
-  CircleHelp,
-} from "lucide-react";
+import { Search, Pencil, Trash2, ChevronDown, CircleHelp, HelpCircle } from "lucide-react";
 
 const Users = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -29,35 +23,35 @@ const Users = () => {
       id: "U12547",
       name: "Sagar Kumar",
       role: "Operator",
-      shift: "Shift A",
+      shift: "Shift 1",
       status: "Active",
     },
     {
       id: "U123348",
       name: "Sita Patel",
       role: "Operator",
-      shift: "Shift A",
+      shift: "Shift 2",
       status: "Inactive",
     },
     {
       id: "U13467",
       name: "Amit Sharma",
       role: "Operator",
-      shift: "Shift B",
+      shift: "Shift 2",
       status: "Active",
     },
     {
       id: "U13288",
       name: "Swetha Patil",
       role: "Admin",
-      shift: "Shift C",
+      shift: "Shift 3",
       status: "Inactive",
     },
     {
       id: "U33357",
       name: "Vikram Kumar",
       role: "Admin",
-      shift: "Shift B",
+      shift: "Shift 1",
       status: "Active",
     },
   ]);
@@ -76,7 +70,7 @@ const Users = () => {
   // EDIT USER
   const handleEditUser = (updatedUser) => {
     const updatedUsers = users.map((user) =>
-      user.id === updatedUser.id ? updatedUser : user
+      user.id === updatedUser.id ? updatedUser : user,
     );
 
     setUsers(updatedUsers);
@@ -88,21 +82,14 @@ const Users = () => {
       user.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.name.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesRole =
-      selectedRole === "" || user.role === selectedRole;
+    const matchesRole = selectedRole === "" || user.role === selectedRole;
 
     const matchesStatus =
       selectedStatus === "" || user.status === selectedStatus;
 
-    const matchesShift =
-      selectedShift === "" || user.shift === selectedShift;
+    const matchesShift = selectedShift === "" || user.shift === selectedShift;
 
-    return (
-      matchesSearch &&
-      matchesRole &&
-      matchesStatus &&
-      matchesShift
-    );
+    return matchesSearch && matchesRole && matchesStatus && matchesShift;
   });
 
   return (
@@ -192,11 +179,11 @@ const Users = () => {
           >
             <option value="">Shift</option>
 
-            <option value="Shift A">Shift A</option>
+            <option value="Shift A">Shift 1</option>
 
-            <option value="Shift B">Shift B</option>
+            <option value="Shift B">Shift 2</option>
 
-            <option value="Shift C">Shift C</option>
+            <option value="Shift C">Shift 3</option>
           </select>
 
           <ChevronDown size={14} />
@@ -232,9 +219,7 @@ const Users = () => {
                   <td>
                     <span
                       className={`status-badge ${
-                        user.status === "Active"
-                          ? "active"
-                          : "inactive"
+                        user.status === "Active" ? "active" : "inactive"
                       }`}
                     >
                       {user.status}
@@ -255,10 +240,7 @@ const Users = () => {
                     />
 
                     {/* DELETE */}
-                    <Trash2
-                      size={15}
-                      onClick={() => handleDelete(user.id)}
-                    />
+                    <Trash2 size={15} onClick={() => handleDelete(user.id)} />
                   </td>
                 </tr>
               ))
@@ -274,8 +256,8 @@ const Users = () => {
       </div>
 
       {/* HELP BUTTON */}
-      <div className="help-btn">
-        <CircleHelp size={22} />
+      <div className="help-button">
+        <HelpCircle className="help-icon" strokeWidth={1.2} size={24} />
       </div>
     </div>
   );

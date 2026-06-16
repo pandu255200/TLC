@@ -1,6 +1,6 @@
 import React from "react";
 import analyticsData from "../data/AnalyticData";
-import '../styles/live.css'
+import '../styles/analytics.css'
 const StatCards = ({ stats }) => {
   return (
     <div className="stats-layout">
