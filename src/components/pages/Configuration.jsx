@@ -21,6 +21,7 @@ const Configuration = () => {
   const [openShift, setOpenShift] = useState(null);
   return (
     <div className="config-wrapper">
+      
       <p className="config-path">
         Menu / <span>Configuration</span>
       </p>
@@ -58,7 +59,9 @@ const Configuration = () => {
               />
             </div>
 
-            <button className="config-update-btn">Update</button>
+            <button className="config-update-btn threshold-update-btn">
+              Update
+            </button>
           </div>
         </div>
 
@@ -100,7 +103,9 @@ const Configuration = () => {
               </div>
             ))}
 
-            <button className="config-update-btn">Update</button>
+            <button className="config-update-btn notification-update-btn">
+              Update
+            </button>
           </div>
         </div>
 
@@ -119,12 +124,12 @@ const Configuration = () => {
                 onChange={(e) => setComplianceThreshold(Number(e.target.value))}
                 style={{
                   background: `linear-gradient(
-      to right,
-      #4f55ff 0%,
-      #4f55ff ${complianceThreshold}%,
-      #d8d8e8 ${complianceThreshold}%,
-      #d8d8e8 100%
-    )`,
+    to right,
+    #FF7A00 0%,
+    #FF7A00 ${complianceThreshold}%,
+    #E9DED5 ${complianceThreshold}%,
+    #E9DED5 100%
+  )`,
                 }}
               />
 
@@ -137,7 +142,9 @@ const Configuration = () => {
               onChange={(e) => setComplianceThreshold(Number(e.target.value))}
             />
 
-            <button className="config-update-btn">Update</button>
+            <button className="config-update-btn compliance-update-btn">
+              Update
+            </button>
           </div>
         </div>
       </div>

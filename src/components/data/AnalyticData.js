@@ -70,11 +70,11 @@ const analyticsData = {
         { date: "09/06/26", value: 33 },
 
         { date: "10/06/26", value: 88 },
-        { date: "11/06/26", value: 90 },
-        { date: "12/06/26", value: 95 },
-        { date: "13/06/26", value: 97 },
-        { date: "14/06/26", value: 98 },
-        { date: "15/06/26", value: 100 },
+        { date: "11/06/26", value: 70 },
+        { date: "12/06/26", value: 75 },
+        { date: "13/06/26", value: 82 },
+        { date: "14/06/26", value: 88 },
+        { date: "15/06/26", value: 92 },
     ],
 
     fillingTimeTrend: [
@@ -295,17 +295,17 @@ export const configurationData = {
 
     shifts: [
         {
-            id: "A",
+            id: "1",
             name: "Shift 1",
             selectedUsers: [],
         },
         {
-            id: "B",
+            id: "2",
             name: "Shift 2",
             selectedUsers: [],
         },
         {
-            id: "C",
+            id: "3",
             name: "Shift 3",
             selectedUsers: [],
         },

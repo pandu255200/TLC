@@ -20,15 +20,17 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./Prototype.css";
-import clientlogo from "../../assets/clientlogo.png";
+// import clientlogo from "../../assets/clientlogo.png";
 import "./analytics.css";
 
 import ing from "../../assets/resoluteai.png";
-import adminlogo from "../../assets/adminlogo.png";
-// import image from "../../assets/image.png";
-import ZodhaGpt from "../../assets/analyticskart.png";
-import olam from "../../assets/olam.png";
-import olamclient from "../../assets/olamclient.png";
+import olam from "../../assets/image.png";
+import analyticskart from "../../assets/analyticskart.png";
+import client from "../../assets/crtr.png";
+import home from "../../assets/sidebar/home.png";
+import analytics from "../../assets/sidebar/analytics.png";
+import config from "../../assets/sidebar/config.png";
+import usm from "../../assets/sidebar/usm.png";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -88,29 +90,45 @@ const Dashboard = () => {
     <div className="app-container">
       <div className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}>
         <div className="logo">
-          <img src={ZodhaGpt} alt="ZodhaGpt Logo" />
+          <img src={analyticskart} alt="Analytics Logo" />
         </div>
 
         <nav className="nav-links">
           {role === "admin" && (
             <>
               <NavLink to="/dashboard/home" className="nav-button">
-                <FaHome />
+                <img
+                  src={home}
+                  alt=""
+                  style={{ width: "24px", height: "24px" }}
+                />
                 <span>Home</span>
               </NavLink>
 
               <NavLink to="/dashboard/analytics" className="nav-button">
-                <FaChartBar />
+                <img
+                  src={analytics}
+                  alt=""
+                  style={{ width: "24px", height: "24px" }}
+                />
                 <span>Analytics</span>
               </NavLink>
 
               <NavLink to="/dashboard/config" className="nav-button">
-                <FaSlidersH />
+                <img
+                  src={config}
+                  alt=""
+                  style={{ width: "24px", height: "24px" }}
+                />
                 <span>Configuration</span>
               </NavLink>
 
               <NavLink to="/dashboard/users" className="nav-button">
-                <FaUserCog />
+                <img
+                  src={usm}
+                  alt=""
+                  style={{ width: "24px", height: "24px" }}
+                />
                 <span>User Management</span>
               </NavLink>
             </>
@@ -135,9 +153,9 @@ const Dashboard = () => {
       <div className="main-content">
         <header className="app-header">
           <div className="sidebar-toggle-wrapper">
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            {/* <button className="sidebar-toggle" onClick={toggleSidebar}>
               <div className="toggle-icon"></div>
-            </button>
+            </button> */}
 
             <div className="current-page-title">
               {role === "operator" && !isSidebarOpen ? (
@@ -156,71 +174,23 @@ const Dashboard = () => {
           </div>
           {!(role === "operator" && !isSidebarOpen) && (
             <div className="hamburger-hover-wrapper">
-              <button
-                className="hamburger-toggle"
-                onClick={() => setHamburgerMenuOpen((prev) => !prev)}
-              >
+              <button className="hamburger-toggle" onClick={toggleSidebar}>
                 <div className="bar"></div>
                 <div className="bar"></div>
                 <div className="bar"></div>
               </button>
-
-              {isHamburgerMenuOpen && (
-                <div className="hover-nav-card">
-                  <button
-                    className="nav-button"
-                    onClick={() => {
-                      navigate("/dashboard/home");
-                      setHamburgerMenuOpen(false);
-                    }}
-                  >
-                    <FaHome />
-                    <span>Home</span>
-                  </button>
-                  <button
-                    className="nav-button"
-                    onClick={() => {
-                      navigate("/dashboard/analytics");
-                      setHamburgerMenuOpen(false);
-                    }}
-                  >
-                    <FaChartBar />
-                    <span>Analytics</span>
-                  </button>
-                  <button
-                    className="nav-button"
-                    onClick={() => {
-                      navigate("/dashboard/config");
-                      setHamburgerMenuOpen(false);
-                    }}
-                  >
-                    <FaSlidersH />
-                    <span>Configuration</span>
-                  </button>
-                  <button
-                    className="nav-button"
-                    onClick={() => {
-                      navigate("/dashboard/users");
-                      setHamburgerMenuOpen(false);
-                    }}
-                  >
-                    <FaUserCog />
-                    <span>User Management</span>
-                  </button>
-                </div>
-              )}
             </div>
           )}
 
           {/* <h1>Trolly verification</h1> */}
           <div className="app-client">
-            <img src={olam} alt="Client Logo" />
+            <img src={client} alt="Client Logo" />
           </div>
 
           {/* Admin Logo with Dropdown */}
           <div className="app-logo" ref={adminMenuRef}>
             <img
-              src={olamclient}
+              src={olam}
               alt="admin Logo"
               className="admin-logo"
               onClick={() => setAdminMenuOpen((prev) => !prev)}

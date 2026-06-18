@@ -12,12 +12,19 @@ import EfficiencyCards from "../Home/EfficiencyCards";
 const Home = () => {
   return (
     <div className="home-container">
-      <LidarStatus />
-      <StatCards />
-      <ChartsSection />
-      <EfficiencyCards />
+      <div className="home-top-section">
+        <LidarStatus />
+        <StatCards />
+      </div>
+
+      <div className="home-chart-section">
+        <ChartsSection />
+        <EfficiencyCards />
+      </div>
     </div>
   );
 };
+
+// export default Home;
 
 export default Home;

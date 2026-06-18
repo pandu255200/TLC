@@ -13,13 +13,13 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* <Route path="/operator-dashboard" element={<OperatorDashboard />} /> */}
+        <Route path="/live" element={<OperatorDashboard />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="home" element={<Home />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="config" element={<Configuration />} />
           <Route path="users" element={<Users />} />
-          <Route path="live" element={<OperatorDashboard />} />
+          {/* <Route path="live" element={<OperatorDashboard />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

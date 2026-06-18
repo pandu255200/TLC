@@ -100,7 +100,7 @@ const ChartsSection = () => {
                           : "green-bar previous-bar"
                       }
                       style={{
-                        height: `${(item.value / 100) * 150}px`,
+                        height: `${(item.value / 100) * 220}px`,
                       }}
                     >
                       <span>{item.value}%</span>

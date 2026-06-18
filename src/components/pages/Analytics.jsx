@@ -37,36 +37,36 @@ const Analytics = () => {
   );
 
   return (
-    <div className="dash-wrapper">
-      {/* HEADER + FILTERS */}
-      <AnalyticsFilters
-        startDate={startDate}
-        endDate={endDate}
-        shift={shift}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        setShift={setShift}
-        downloadReport={downloadReport}
-      />
-
-      {/* STATS CARDS */}
-      <StatCards stats={analyticsData.stats} />
-
-      {/* TOP CHARTS */}
-      <div className="chart-grid-layout">
-        <ShiftComplianceChart data={analyticsData.shiftCompliance} />
-
-        <EfficiencyChart
-          data={filteredEfficiencyData}
-          efficiencyYAxis={efficiencyYAxis}
+    <div className="analytics-container">
+      <div className="analytics-top-section">
+        <AnalyticsFilters
+          startDate={startDate}
+          endDate={endDate}
+          shift={shift}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setShift={setShift}
+          downloadReport={downloadReport}
         />
+
+        <StatCards stats={analyticsData.stats} />
       </div>
 
-      {/* BOTTOM FULL WIDTH CHART */}
-      <FillingTimeChart
-        data={filteredFillingData}
-        fillingTimeYAxis={fillingTimeYAxis}
-      />
+      <div className="analytics-chart-section">
+        <div className="chart-grid-layout">
+          <ShiftComplianceChart data={analyticsData.shiftCompliance} />
+
+          <EfficiencyChart
+            data={filteredEfficiencyData}
+            efficiencyYAxis={efficiencyYAxis}
+          />
+        </div>
+
+        <FillingTimeChart
+          data={filteredFillingData}
+          fillingTimeYAxis={fillingTimeYAxis}
+        />
+      </div>
     </div>
   );
 };

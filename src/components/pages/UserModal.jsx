@@ -13,7 +13,7 @@ const AddUserModal = ({
     id: selectedUser?.id || "",
     name: selectedUser?.name || "",
     role: selectedUser?.role || "",
-    shift: selectedUser?.shift || "Shift A",
+    shift: selectedUser?.shift || "Shift 1",
     status: selectedUser?.status || "Active",
   });
 
@@ -103,11 +103,11 @@ const AddUserModal = ({
             <label>Shift</label>
 
             <select name="shift" value={userData.shift} onChange={handleChange}>
-              <option value="Shift A">Shift A</option>
+              <option value="Shift A">Shift 1</option>
 
-              <option value="Shift B">Shift B</option>
+              <option value="Shift B">Shift 2</option>
 
-              <option value="Shift C">Shift C</option>
+              <option value="Shift C">Shift 3</option>
             </select>
           </div>
 
@@ -129,7 +129,7 @@ const AddUserModal = ({
               <span
                 className={`status-text ${isActive ? "active" : "inactive"}`}
               >
-                {isActive ? "Active" : "Inactive"}
+                {/* {isActive ? "Active" : "Inactive"} */}
               </span>
             </div>
           </div>

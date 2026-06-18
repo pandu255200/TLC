@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import "../styles/usermanagement.css";
 import AddUserModal from "../pages/UserModal";
 
-import { Search, Pencil, Trash2, ChevronDown, CircleHelp, HelpCircle } from "lucide-react";
+import {
+  Search,
+  Pencil,
+  Trash2,
+  ChevronDown,
+  CircleHelp,
+  HelpCircle,
+} from "lucide-react";
 
 const Users = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -112,17 +119,6 @@ const Users = () => {
 
           <h2>User Management</h2>
         </div>
-
-        <button
-          className="add-user-btn"
-          onClick={() => {
-            setOpenModal(true);
-            setIsEdit(false);
-            setSelectedUser(null);
-          }}
-        >
-          + Add User
-        </button>
       </div>
 
       {/* FILTERS */}
@@ -188,6 +184,16 @@ const Users = () => {
 
           <ChevronDown size={14} />
         </div>
+        <button
+          className="add-user-btn"
+          onClick={() => {
+            setOpenModal(true);
+            setIsEdit(false);
+            setSelectedUser(null);
+          }}
+        >
+          + Add User
+        </button>
       </div>
 
       {/* TABLE */}

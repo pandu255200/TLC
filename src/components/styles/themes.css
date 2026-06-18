@@ -1,0 +1,69 @@
+:root {
+  /* Brand Colors */
+  --primary: #ff7900; /* Olam Orange */
+  --primary-hover: #e66d00;
+  --primary-light: #fff2e6;
+
+  /* Layout */
+  --home-top-bg: #f4f2e8;
+  --home-chart-bg: #f5f5f5;
+
+  --bg-page: #f5f6fa;
+  --bg-sidebar: #ffffff;
+  --bg-header-start: #f4f2e8;
+  --bg-header-end: #f8f6ee;
+  --border-color: #e5e7eb;
+
+  /* Text */
+  --text-primary: #2d2d2d;
+  --text-secondary: #6b7280;
+  --text-white: #ffffff;
+
+  /* Cards */
+  --card-bg: #ffffff;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Status */
+  --success: #4caf50;
+  --warning: #ffc107;
+  --danger: #f44336;
+  --info: #03a9f4;
+
+  /* Dashboard KPI Cards */
+  --kpi-efficiency: #f3e4d8;
+  --kpi-compliance: #dad7f0;
+  --kpi-noncompliance: #e7d9f2;
+  --kpi-overfill: #f2d5d5;
+  --kpi-underfill: #ddeed1;
+
+  /* Charts */
+  --chart-orange: #f4a046;
+  --chart-green: #57d35b;
+  --chart-blue: #9be3f2;
+  --chart-purple: #7e78e6;
+  --chart-yellow: #e9c856;
+
+  /* Navigation */
+  --nav-active: #ff7900;
+  --nav-hover: #fff2e6;
+  --nav-text: #333333;
+
+  /* Home Page */
+  --page-bg: #f4f2e8;
+
+  /* Chart */
+  --chart-border: #f4b37a;
+  --axis-color: #a6a6a6;
+  --grid-line: #ececec;
+  --tooltip-bg: #ece9f7;
+  /* Tooltip */
+  /* --tooltip-bg: #f7f3ea; */
+  --status-online: #4cd964;
+  --status-offline: #ff3b30;
+
+  --font-primary: "Gilroy", sans-serif;
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+}

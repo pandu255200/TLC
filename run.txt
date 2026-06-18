@@ -1,3 +1,16 @@
 First go through the project 
 Then Enter 
 npm run dev
+
+
+Credientials:
+For Admin
+
+Username : admin@example.com
+Password : admin123
+
+
+For Operator
+
+Username : operator@example.com
+Password : operator123

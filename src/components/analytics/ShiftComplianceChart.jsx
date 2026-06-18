@@ -1,6 +1,8 @@
 import React from "react";
 
 const ShiftComplianceChart = ({ data }) => {
+  const CHART_HEIGHT = 220;
+  const MAX_VALUE = 240;
   return (
     <div className="graph-section">
       <h3>Shift Wise Compliance Trend</h3>
@@ -51,7 +53,7 @@ const ShiftComplianceChart = ({ data }) => {
                   <div
                     className="bottom-green-bar"
                     style={{
-                      height: `${(item.compliant / 240) * 120}px`,
+                      height: `${(item.compliant / 240) * 220}px`,
                     }}
                   >
                     <span>{item.compliant}</span>
@@ -61,8 +63,8 @@ const ShiftComplianceChart = ({ data }) => {
                     className="top-gray-bar"
                     style={{
                       height: `${Math.max(
-                        (item.nonCompliant / 240) * 120,
-                        12,
+                        (item.nonCompliant / 240) * 220
+                        
                       )}px`,
                     }}
                   >

@@ -5,10 +5,17 @@ import "../styles/analytics.css";
 const FillingTimeChart = ({ data, fillingTimeYAxis }) => {
   const latestData = data.slice(-5);
 
+  const MAX_TIME = 4;
+  const SVG_HEIGHT = 160;
+  const TOP_PADDING = 10;
+  const BOTTOM_PADDING = 20;
+  const GRAPH_HEIGHT = SVG_HEIGHT - TOP_PADDING - BOTTOM_PADDING;
   const fillingTimePoints = latestData
     .map((item, index) => {
-      const x = 120 + index * 200;
-      const y = 140 - item.value * 15;
+      const x = 120 + index * 205;
+
+      const y =
+        TOP_PADDING + ((MAX_TIME - item.value) / MAX_TIME) * GRAPH_HEIGHT;
 
       return `${x},${y}`;
     })
@@ -40,11 +47,9 @@ const FillingTimeChart = ({ data, fillingTimeYAxis }) => {
           </div>
 
           <div className="line-chart-wrapper">
-            <div className="grid-line"></div>
-            <div className="grid-line"></div>
-            <div className="grid-line"></div>
-            <div className="grid-line"></div>
-            <div className="grid-line"></div>
+            {[ 0,25,50, 75].map((top) => (
+              <div key={top} className="grid-line" style={{ top: `${top}%` }} />
+            ))}
 
             <svg viewBox="0 0 1200 160" className="svg-chart">
               <polyline
@@ -55,20 +60,29 @@ const FillingTimeChart = ({ data, fillingTimeYAxis }) => {
               />
 
               {latestData.map((item, index) => {
-                const x = 120 + index * 200;
-                const y = 140 - item.value * 15;
+                const x = 120 + index * 205;
+
+                const y =
+                  TOP_PADDING +
+                  ((MAX_TIME - item.value) / MAX_TIME) * GRAPH_HEIGHT;
 
                 return (
-                  <circle key={index} cx={x} cy={y} r="5" fill="#5b5bf7" />
+                  <circle
+                    key={index}
+                    cx={x}
+                    cy={y}
+                    r="5"
+                    className="efficiency-point"
+                  />
                 );
               })}
 
-              <g fill="#777" fontSize="11" textAnchor="middle">
+              <g fill="#777" fontSize="12" textAnchor="middle">
                 {latestData.map((item, index) => {
-                  const x = 120 + index * 200;
+                  const x = 120 + index * 205;
 
                   return (
-                    <text key={index} x={x} y="150">
+                    <text key={index} x={x} y="210">
                       {item.date}
                     </text>
                   );

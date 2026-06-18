@@ -23,8 +23,8 @@ const Login = () => {
       localStorage.setItem("role", "admin");
       navigate("/dashboard/home");
     } else if (email === "operator@example.com" && password === "operator123") {
-      localStorage.setItem("role", "operator");
-      navigate("/dashboard/live");
+      // localStorage.setItem("role", "operator");
+      navigate("/live");
     } else {
       setError("Invalid email or password");
     }

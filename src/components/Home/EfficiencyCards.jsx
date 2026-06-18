@@ -41,10 +41,10 @@ const EfficiencyCards = () => {
                   <div
                     className="small-gray-bar"
                     style={{
-                      height: `${((item.value * 10) / 100) * 140}px`,
+                      height: `${item.value}%`,
                     }}
                   >
-                    <span>{item.value}</span>
+                    <span>{item.value}%</span>
                   </div>
                   <p>{item.Week}</p>
                 </div>
@@ -93,7 +93,7 @@ const EfficiencyCards = () => {
                   <div
                     className="year-bar"
                     style={{
-                      height: `${(item.value / 100) * 140}px`,
+                      height: `${item.value}%`,
                     }}
                   />
 
@@ -142,7 +142,7 @@ const EfficiencyCards = () => {
                   <div
                     className="avg-bar"
                     style={{
-                      height: `${(item.value / 100) * 140}px`,
+                      height: `${item.value}%`,
                     }}
                   >
                     {item.value}%

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/analytics.css";
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import dayjs from "dayjs";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -29,11 +29,30 @@ const AnalyticsFilters = ({
             value={startDate}
             onChange={(newValue) => setStartDate(newValue)}
             format="DD/MM/YYYY"
+            slots={{
+              openPickerIcon: KeyboardArrowDownIcon,
+            }}
             slotProps={{
               textField: {
                 size: "small",
                 sx: {
-                  width: 140,
+                  width: 171,
+
+                  "& .MuiPickersOutlinedInput-root": {
+                    height: 42,
+                    border: "1px solid #FF7900",
+                    borderRadius: "3px",
+                    backgroundColor: "#FFFFFF",
+                  },
+
+                  "& .MuiPickersInputBase-input": {
+                    fontSize: "12px",
+                    fontFamily: "Gilroy",
+                  },
+
+                  "& .MuiSvgIcon-root": {
+                    color: "#FF7900",
+                  },
                 },
               },
             }}
@@ -42,13 +61,32 @@ const AnalyticsFilters = ({
           <DatePicker
             label="End Date"
             value={endDate}
-            onChange={(newValue) => setEndDate(newValue)}
+            onChange={(newValue) => setStartDate(newValue)}
             format="DD/MM/YYYY"
+            slots={{
+              openPickerIcon: KeyboardArrowDownIcon,
+            }}
             slotProps={{
               textField: {
                 size: "small",
                 sx: {
-                  width: 140,
+                  width: 171,
+
+                  "& .MuiPickersOutlinedInput-root": {
+                    height: 42,
+                    border: "1px solid #FF7900",
+                    borderRadius: "3px",
+                    backgroundColor: "#FFFFFF",
+                  },
+
+                  "& .MuiPickersInputBase-input": {
+                    fontSize: "12px",
+                    fontFamily: "Gilroy",
+                  },
+
+                  "& .MuiSvgIcon-root": {
+                    color: "#FF7900",
+                  },
                 },
               },
             }}

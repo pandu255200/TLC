@@ -1,3 +1,110 @@
+.operator-dashboard {
+  font-family: "Gilroy", sans-serif;
+  background-color: #f3f4fa;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.operator-header {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 82px;
+
+  padding: 0 28px 0 8px;
+
+  border-bottom: 1px solid #84b9ff;
+}
+
+.Operator-header-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.analytics-logo {
+  height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
+.live-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #4354ff;
+  font-family: inherit;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.olam-logo {
+  height: 44px;
+  object-fit: contain;
+}
+
+.profile-image {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.live-section {
+  flex-grow: 1;
+}
+
+.live-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.green-dot {
+  width: 8px;
+  height: 8px;
+
+  background-color: #22c55e;
+
+  border-radius: 50%;
+
+  display: inline-block;
+
+  margin-top: 6px; /* moves dot slightly down */
+
+  animation: blinkDot 1s infinite;
+}
+
+/* BLINK ANIMATION */
+
+@keyframes blinkDot {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 8px #22c55e;
+  }
+
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 9px #22c55e;
+  }
+
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px #22c55e;
+  }
+}
 .operator-page {
   padding: 16px;
   background: #f4f5fb;
@@ -112,7 +219,7 @@
 
 .level.gray {
   top: 130px;
-  border-color: #c5bdbd;
+  border-color: yellow;
 }
 .percent {
   text-align: center;
@@ -174,7 +281,7 @@
 }
 
 .legend-color.gray {
-  background: #d9d9d9;
+  background: yellow;
 }
 
 .tank-grid-wrapper {
@@ -211,7 +318,7 @@
 }
 
 .tank-box.low {
-  background: #d8d8d8;
+  background: yellow;
 }
 
 .card-head {
@@ -222,4 +329,148 @@
   height: 28px;
   display: flex;
   align-items: center;
+}
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-image {
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+
+  top: 55px;
+  right: 0;
+
+  width: 130px;
+
+  background: #ffffff;
+
+  border-radius: 10px;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  padding: 8px;
+
+  z-index: 1000;
+}
+
+.logout-item {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #222;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.logout-item:hover {
+  background: #f3f4fa;
+}
+
+.live-section {
+  padding: 12px 20px;
+}
+
+.top-section {
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Tank cards */
+.tank-card {
+  padding: 18px;
+}
+
+/* Reduce tank visual */
+.tank-visual {
+  width: 45px;
+  height: 100px;
+}
+
+/* Reduce spacing */
+.tank-content {
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Re-align level lines */
+.level-lines {
+  height: 100px;
+}
+
+.level.red {
+  top: 21px;
+}
+
+.level.green {
+  top: 60px;
+}
+
+.level.gray {
+  top: 114px;
+}
+
+/* Smaller legend */
+.legend-card {
+  width: 180px;
+  padding: 18px;
+}
+
+.legend-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.legend-row {
+  font-size: 13px;
+}
+
+.legend-row:nth-child(2) {
+  top: 100px;
+}
+
+.legend-row:nth-child(3) {
+  top: 140px;
+}
+
+.legend-row:nth-child(4) {
+  top: 190px;
+}
+
+/* Tank grid container */
+.tank-grid-wrapper {
+  padding: 9px;
+}
+
+/* Reduce trolley height */
+.tank-box {
+  height: 90px;
+  font-size: 14px;
+}
+
+/* Smaller title */
+.live-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.operator-footer p {
+  margin-left: 70px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
 }

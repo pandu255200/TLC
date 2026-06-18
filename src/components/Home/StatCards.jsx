@@ -22,7 +22,7 @@ const StatCards = () => {
         </div>
       ))}
       <div className="help-button">
-        <HelpCircle className="help-icon" strokeWidth={1.2} size={24} />
+        <HelpCircle className="help-icon" strokeWidth={1.2} size={45} />
       </div>
     </div>
   );

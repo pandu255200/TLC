@@ -1,7 +1,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  /* background: rgba(0, 0, 0, 0.18); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,12 +9,14 @@
 }
 
 .user-modal {
-  width: 320px;
+  width: 422px;
+  height: 365px;
   background: white;
-  border: 1px solid #635bff;
-  border-radius: 3px;
-  padding: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--chart-border);
+  border-radius: 4px;
+  padding: 16px;
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); */
+  gap: 16px;
 }
 
 /* HEADER */
@@ -26,16 +28,18 @@
 }
 
 .modal-header h3 {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   color: #222;
 }
 
 .close-btn {
+  width: 24px;
+  height: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #6c63ff;
+  color: #030303;
 }
 
 /* FORM */
@@ -43,30 +47,32 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px 12px;
-  margin-bottom: 16px;
+  margin-bottom: 50px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  height: 61px;
 }
 
 .form-group label {
-  font-size: 11px;
-  margin-bottom: 6px;
+  font-size: 14px;
+  margin-bottom: 10px;
   color: #444;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .form-group input,
 .form-group select {
-  height: 30px;
+  height: 36px;
   width: 100%;
   border: none;
   background: #f2f2f2;
   border-radius: 2px;
   padding: 0 10px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
   outline: none;
   color: #444;
 }
@@ -78,9 +84,8 @@
 /* TOGGLE */
 .toggle-switch {
   position: relative;
-  width: 34px;
-  height: 18px;
-  margin-top: 6px;
+  width: 52px;
+  height: 32px;
 }
 
 .toggle-switch input {
@@ -92,47 +97,49 @@
 .slider {
   position: absolute;
   inset: 0;
-  background: #b6b1c7;
-  border-radius: 30px;
+  background: #e6e0e9;
+  border-radius: 999px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .slider::before {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
-  left: 2px;
-  top: 2px;
-  background: white;
+  width: 20px;
+  height: 20px;
+  left: 6px;
+  top: 6px;
   border-radius: 50%;
-  transition: 0.3s;
+  background: #79747e;
+  transition: 0.3s ease;
 }
 
+/* Active State */
 .toggle-switch input:checked + .slider {
-  background: #5a54ff;
+  background: #ff7a00;
 }
 
 .toggle-switch input:checked + .slider::before {
-  transform: translateX(16px);
+  background: #ffffff;
+  transform: translateX(20px);
 }
 
 /* SAVE BUTTON */
 .save-btn {
   width: 100%;
-  height: 34px;
+  height: 36px;
   border: none;
-  background: #5a54ff;
+  background: #ff7000;
   color: white;
   border-radius: 2px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
 }
 
 .save-btn:hover {
-  background: #4d46f0;
+  background: #ff7000;
 }
 
 .status-toggle-wrapper {
